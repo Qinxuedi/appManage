@@ -1,0 +1,67 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/login_css.css" />
+	<style type="text/css">
+		#panel{height: 420px;}
+	</style>
+</head>
+<body  onload=slide() onResize="Resize()">
+<div id='container'>
+	<div id='content' style='height:560px;position:relative;top:-40px;'>
+        <div id='img_div'>
+            <a href="/"><img src="/static/images/first/2.jpg"></a>
+        </div>
+
+        <div id='panel'>
+        <div id='up_panel'>
+            <p>注册</p>
+            <a href="/" style='position:relative;left:250px;top:-40px;color:white;'>首页</a>
+        </div>
+        <div id='down_panel'>
+        <form action='' onsubmit="return validate_form2(this)" method='post'>
+            {% csrf_token %}
+            <br><br>
+            <label style='position:relative;left:20px;'>用户名</label>
+            <input type='text' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:30px;" name='name'>
+            <label id='one' style="color:red;left:62px;"></label>
+            <br>
+
+            <br>
+            <label style='position:relative;left:33px;'>邮箱</label>
+            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:44px;" name='mima'>
+            <label id='one' style="color:red;left:62px;"></label>
+            <br>
+
+
+            <br>
+            <label style='position:relative;left:33px;'>密码</label>
+            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:44px;" name='mima'>
+            <label id='one' style="color:red;left:62px;"></label>
+            <br>
+
+            <br>
+            <label style='position:relative;left:5px;'>确认密码</label>
+            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:13px;" name='name'>
+            <label id='one' style="color:red;left:62px;"></label>
+            <br>
+
+            <br>
+            <label style='position:relative;left:20px;'>验证码</label>
+            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:30px;width:100px;" name='mima'>
+            <img src="/static/images/verify/1.png" style="position:relative;left:30px;top:10px;width:60px;height:30px;">
+            <label id='one' style="color:red;left:62px;"></label>
+            <br>
+
+            <br>
+            <input style='position:relative;left:136px;' type='submit' id='submit_button' value='注册' onmouseover='down_changeColor1(this)' onmouseout='down_changeColor2(this)'>
+
+        <form/>
+        </div>
+        </div>
+
+    </div>
+    
+</div>
+</body>
+</html>

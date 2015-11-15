@@ -1,0 +1,279 @@
+<html>
+<head>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/first_js.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/rank_css.css" />
+</head>
+<body  onload=slide()>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="">软件</a></li>
+		<li><a class='first' href="/classify/">分类</a></li>
+		<li><a class='first' href="/rank/" style='background:rgb(66,139,202);'>排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/">每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/tao_bao/tao_bao.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>淘宝</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/mei_tuan/mei_tuan.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>美团外卖</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/zuo_ye_bang/zuo_ye_bang.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>作业帮</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/mei_li_shuo/mei_li_shuo.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>美丽说</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/yuan_ti_ku/yuan_ti_ku.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>猿题库</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/wang_yi_gong_kai_ke/wang_yi_gong_kai_ke.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>网易公开课</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/zhi_fu_bao/zhi_fu_bao.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>支付宝</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/mo_gu_jie/mo_gu_jie.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>蘑菇街</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/QQ_you_xiang/QQ_you_xiang.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>QQ邮箱</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/wps/wps.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>WPS</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/tian_mao/tian_mao.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>天猫</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/wei_pin_hui/wei_pin_hui.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>唯品会</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/ren_ren/ren_ren.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>人人网</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/ju_hua_suan/ju_hua_suan.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>聚划算</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/QQ/QQ.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>QQ</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/wei_xin/wei_xin.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>微信</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/jing_dong/jing_dong.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>京东</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+    <div class='one'>
+        <img src="/static/images/app_images/da_ma_mei_yi/da_ma_mei_yi.png" class='my'>
+        <div class='inf'>
+            <a href=""><strong>大码美衣</strong></a><br><br>
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/yellowstar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <img src="/static/images/app_images/greystar.png">
+            <p>5.4.0&nbsp&nbsp|&nbsp&nbsp57.57MB</p>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

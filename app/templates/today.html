@@ -1,0 +1,165 @@
+<html>
+<head>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/today_css.css" />
+	<script type="text/javascript" src="/static/js/today_js.js"></script>
+</head>
+<body>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="">软件</a></li>
+		<li><a class='first' href="/classify/">分类</a></li>
+		<li><a class='first' href="/rank/">排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/" style='background:rgb(66,139,202)'>每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+	<div id='left_div'>
+		<div id='up_panel'><p>今日主题</p></div>
+        <div class='down_panel' id='down_panel1' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic' src="/static/images/today/1.jpg">
+        	<div class='inf_div'>
+        		<img src="/static/images/today/love.png" class='top_inf'>
+        		<p class='top_inf'>200</p>
+        		<img src="/static/images/today/bag.png" class='top_inf'>
+        		<p class='top_inf'>158</p>
+        	</div>
+        	<div class='guide'>
+        		<a href="/today/2015-11-6/" class='guide_href'>午餐吃什么 最全美食宝典，吃什么不用愁！</a>
+	        	<p>2015-11-6<br>
+	        	午餐要吃什么，对于很多上班族来说，这可是千古难题;其实又何止是午餐，他们早餐、晚餐也不知道要吃什么?为什么别人家的饭桌可以那么丰盛，而你……别着急，今天小编就帮你解决吃的问题，多种选择，由你来做主!</p>
+        	</div>
+        </div>
+        <div class='down_panel' id='down_panel2' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic' src="/static/images/today/2.jpg">
+        	<div class='inf_div'>
+        		<img src="/static/images/today/love.png" class='top_inf'>
+        		<p class='top_inf'>500</p>
+        		<img src="/static/images/today/bag.png" class='top_inf'>
+        		<p class='top_inf'>396</p>
+        	</div>
+        	<div class='guide'>
+        		<a href="" class='guide_href'>世界那么大，股市要牵挂 安卓软件助你把握股票牛市</a>
+	        	<p>2015-11-5<br>
+	        	今天，你还在排队吗?天台已满，与其在那排队跳楼，还不如多花点心思在您的股票上;人生如戏，但不可能从头再来，还要对人生报有希望，等待反弹;世界那么大，对股市要有牵挂，因为牛市就在那里……安卓软件助你更好把握牛市!</p>
+        	</div>
+        </div>
+        <div class='down_panel' id='down_panel3' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic' src="/static/images/today/3.jpg">
+        	<div class='inf_div'>
+        		<img src="/static/images/today/love.png" class='top_inf'>
+        		<p class='top_inf'>270</p>
+        		<img src="/static/images/today/bag.png" class='top_inf'>
+        		<p class='top_inf'>163</p>
+        	</div>
+        	<div class='guide'>
+        		<a href="" class='guide_href'>秋光易逝，那些适合在秋天做的事</a>
+	        	<p>2015-11-4<br>
+	        	秋是寂寥的，含蓄的;这样的秋天就这样来了，我喜欢把秋天泡在壶中，加些诗，加些美丽的心情，若有若无的禅意。然而秋光易逝，在这样一个美丽的季节，我们总要做些事，来留住这片刻的美好?那秋天要什么事好呢?</p>
+        	</div>
+        </div>
+        <div class='down_panel' id='down_panel4' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic' src="/static/images/today/4.jpg">
+        	<div class='inf_div'>
+        		<img src="/static/images/today/love.png" class='top_inf'>
+        		<p class='top_inf'>200</p>
+        		<img src="/static/images/today/bag.png" class='top_inf'>
+        		<p class='top_inf'>149</p>
+        	</div>
+        	<div class='guide'>
+        		<a href="" class='guide_href'>让美的更出众些 最美修图神器推荐</a>
+	        	<p>2015-11-3<br>
+	        	出门玩可就要玩的尽兴，怎能不秀出几张照片和朋友们一起分享呢?可是最近脸上的豆豆怎么见人?如今各种美化App可是帮了大家的大忙。这些美化应用可以让普通的照片更有看点，也让自己变得更加光彩照人。今天小编就来为您推荐几款修图类应用，烂片也能华丽变身大制作，让您美的更出众。</p>
+        	</div>
+        </div>
+        <div class='down_panel' id='down_panel5' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic' src="/static/images/today/5.jpg">
+        	<div class='inf_div'>
+        		<img src="/static/images/today/love.png" class='top_inf'>
+        		<p class='top_inf'>231</p>
+        		<img src="/static/images/today/bag.png" class='top_inf'>
+        		<p class='top_inf'>118</p>
+        	</div>
+        	<div class='guide'>
+        		<a href="" class='guide_href'>恶趣味聊天才过瘾 花式表情让你幽默值爆棚</a>
+	        	<p>2015-11-2<br>
+	        	在聊天过程中表情不仅可以消除一些不必要的尴尬，也使得气氛更加的活跃起来;一些恶趣味的表情更是让生活多了几分欢乐。今天小编就给大家介绍几款好用的表情工具，让你在朋友圈中幽默值爆棚!</p>
+        	</div>
+        </div>
+	</div>
+
+	<div id='right_div' >
+		<div id='shang_panel'><p style='position:relative;left:10px;top:5px;'>热门主题</p></div>
+        <div class='xia_panel' id='xia_panel1' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic1' src="/static/images/today/6.jpg">
+        	<div class='right_c'>
+        		<a href="" class='right_href'>开学啦，你准备好了吗?</a><p>2015-9-1</p>
+        	</div>
+        </div>
+        <div class='xia_panel' id='xia_panel2' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic1' src="/static/images/today/7.jpg">
+        	<div class='right_c'>
+        		<a href="" class='right_href'>如何过好七夕?把妹必备软件助你成功约炮</a><p>2015-8-20</p>
+        	</div>
+        </div>
+        <div class='xia_panel' id='xia_panel3' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic1' src="/static/images/today/8.jpg">
+        	<div class='right_c'>
+        		<a href="" class='right_href'>灾难面前8款应急类APP帮你开启自救模式</a><p>2015-8-14</p>
+        	</div>
+        </div>
+        <div class='xia_panel' id='xia_panel3' onmouseover='mover(this)' onmouseout='mout(this)'>
+        	<img class='topic1' src="/static/images/today/9.jpg">
+        	<div class='right_c'>
+        		<a href="" class='right_href'>高考之后 放松身心必备治愈系软件合集</a><p>2015-6-10</p>
+        	</div>
+        </div>
+	</div>
+
+	<div id='recent' >
+		<div id='recent_shang'><p style='position:relative;left:10px;top:5px;'>近期主题</p></div>
+		<div id='recent_xia'>
+			<br>
+			<a href='' class='date_topic'>2015-11-1</a>
+	        <a href='' class='date_topic'>2015-10-31</a>
+	        <a href='' class='date_topic'>2015-10-30</a><br><br>
+	        <a href='' class='date_topic'>2015-10-29</a>
+	        <a href='' class='date_topic'>2015-10-28</a>
+	        <a href='' class='date_topic'>2015-10-27</a><br><br>
+	        <a href='' class='date_topic'>2015-10-26</a>
+	        <a href='' class='date_topic'>2015-10-25</a>
+	        <a href='' class='date_topic'>更多</a>
+		</div>
+	</div>
+
+
+
+
+</div>
+</body>
+</html>

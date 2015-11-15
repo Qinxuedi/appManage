@@ -1,0 +1,145 @@
+<html>
+<head>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/first_js.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/classify_css.css" />
+</head>
+<body  onload=slide()>
+<div id='container'>
+
+    <div id='menu'>
+    <ul>
+        <li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+        <li><a class='first' href="/">首页</a></li>
+        <li><a class='first' href="">软件</a></li>
+        <li><a class='first' href="/classify/" style='background:rgb(66,139,202);'>分类</a></li>
+        <li><a class='first' href="/rank/">排行</a></li>
+        <li><a class='first' href="/my/">我的</a></li>
+        <li><a class='first' href="/today/">每日专题</a></li>
+        <li>
+            <div>
+                <form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+                    {% csrf_token %}
+                    <input type='text' name='input' id='input_search'/>
+                    <input type='submit' value='搜索' id='input_submit'/>
+                </form>
+            </div>
+        </li>
+        <li>
+            {% if log %}
+            <a href="my/" id='my_button'>{{name}}</a>
+            <a href="/logout/" id='logout_button'>退出</a>
+            {% else %}
+                <a href="/login/" id='login_button'>登录</a>
+                <a href="/register/" id='register_button'>注册</a>
+            {% endif %} 
+        </li>
+    </ul>
+    </div>
+
+    <div id='left_div'>
+        <div id='left_up'><p style='position:relative;left:10px;top:10px;'>应用</p></div>
+        <div class='left_down'>
+            <a href="/classify/" class='h'>全部</a><br>
+            <a href="/classify/1_1" class='h'>购物消费</a><br>
+            <a href="/classify/1_2" class='h' style='color:red;'>学习办公</a><br>
+            <a href="/classify/1_3" class='h'>金融理财</a><br>
+            <a href="/classify/1_4" class='h'>主题美化</a><br>
+            <a href="/classify/1_5" class='h'>音乐视频</a><br>
+            <a href="/classify/1_6" class='h'>摄影图像</a><br>
+            <a href="/classify/1_7" class='h'>地图导航</a><br>
+            <a href="/classify/1_8" class='h'>网络浏览</a><br>
+            <a href="/classify/1_9" class='h'>资讯阅读</a><br>
+            <a href="/classify/1_10" class='h'>系统安全</a><br>
+            <a href="/classify/1_11" class='h'>聊天社交</a><br>
+            <a href="/classify/1_12" class='h'>生活工具</a><br>
+            <a href="/classify/1_13" class='h'>短信通话</a><br>
+            <a href="/classify/1_14" class='h'>文字输入</a><br>
+        </div>
+    </div>
+
+    <div id='middle_div'>
+
+        <div class='middle_down'>
+            <div class='my_img'>
+                <img src="/static/images/app_images/zuo_ye_bang/zuo_ye_bang.png" class='my'>
+            </div>
+            <div class='my_inf'>
+                <p style='font-size:17px;'><strong>作业帮</strong></p>
+                <p>分分钟完成作业，还能考试提高成绩！</p>
+                <p>版本：5.1.2&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：9.45MB</p>
+            </div>
+            <a href="" class='download'>下载</a>
+        </div>
+
+        <div class='middle_down'>
+            <div class='my_img'>
+                <img src="/static/images/app_images/yuan_ti_ku/yuan_ti_ku.png" class='my'>
+            </div>
+            <div class='my_inf'>
+                <p style='font-size:17px;'><strong>猿题库</strong></p>
+                <p>~~~1000万初高中生使用的免费提分利器~~~~~~</p>
+                <p>版本：5.2.0&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：14.67MB</p>
+            </div>
+            <a href="" class='download'>下载</a>
+        </div>
+
+        <div class='middle_down'>
+            <div class='my_img'>
+                <img src="/static/images/app_images/wang_yi_gong_kai_ke/wang_yi_gong_kai_ke.png" class='my'>
+            </div>
+            <div class='my_inf'>
+                <p style='font-size:17px;'><strong>网易公开课</strong></p>
+                <p>网易公开课，数千万爱学习的网友所钟爱的免费课程平台！</p>
+                <p>版本：10031&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：19.73MB</p>
+            </div>
+            <a href="" class='download'>下载</a>
+        </div>
+
+        <div class='middle_down'>
+            <div class='my_img'>
+                <img src="/static/images/app_images/QQ_you_xiang/QQ_you_xiang.png" class='my'>
+            </div>
+            <div class='my_inf'>
+                <p style='font-size:17px;'><strong>QQ邮箱</strong></p>
+                <p>全面支持邮件通用协议，协助在手机上管理你的所有邮箱。</p>
+                <p>版本：4.1.2&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：24.97MB</p>
+            </div>
+            <a href="" class='download'>下载</a>
+        </div>
+
+        <div class='middle_down'>
+            <div class='my_img'>
+                <img src="/static/images/app_images/wps/wps.png" class='my'>
+            </div>
+            <div class='my_inf'>
+                <p style='font-size:17px;'><strong>WPS</strong></p>
+                <p>免费的Office软件，高效快捷的播放PPT等文件。</p>
+                <p>版本：4.7.1&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：122.11MB</p>
+            </div>
+            <a href="" class='download'>下载</a>
+        </div>
+
+        <br><br><br><br>
+    </div>
+
+    <div id='right_div'>
+        <div id='right_up'><p style='position:relative;left:10px;top:10px;'>游戏</p></div>
+        <div class='right_down'>
+            <a href="/classify/" class='h'>全部</a><br>
+            <a href="/classify/2_1" class='h'>体育竞技</a><br>
+            <a href="/classify/2_2" class='h'>策略模拟</a><br>
+            <a href="/classify/2_3" class='h'>休闲益智</a><br>
+            <a href="/classify/2_4" class='h'>模拟器</a><br>
+            <a href="/classify/2_5" class='h'>网略游戏</a><br>
+            <a href="/classify/2_5" class='h'>修改器</a><br>
+            <a href="/classify/2_7" class='h'>动作射击</a><br>
+            <a href="/classify/2_8" class='h'>角色冒险</a><br>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
