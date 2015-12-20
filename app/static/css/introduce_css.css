@@ -21,19 +21,22 @@ img.my
 {
 	width: 100px;
 	height: 100px;
-	position: relative;
-	top: 20px;
 }
-#img_div,#word_div1,#word_div2,#word_div3
+#img_div,#word_div
 {
 	float: left;
+	height:100px;
+	margin-top:10px;
 }
-#word_div1,#word_div2
-{
-	margin-top: 20px;
-	margin-left: 50px;
-}
-#img_div{width: 100px;height: 200px;}
+#img_div{width:100px;}
+#word_div{margin-left:30px;}
+.classify{width:600px;float:left;}
+.item{height:45px;border: solid 1px rgb(230,230,230);border-top:none;width:698px;}
+.version,.big,.star,.from{float:left;margin-top:14px;}
+.version{margin-left:10px;width:250px;}
+.big{margin-left:10px;width:160px;}
+.star{margin-left:10px;width:120px;}
+.from{margin-left:10px;}
 button.choose
 {
 	float: left;
@@ -62,7 +65,7 @@ button.choose
 #most_right
 {
 	height: 45px;
-	width: 300px;
+	width: 400px;
 	border-right: solid 1px rgb(230,230,230);
 }
 #most_left
@@ -87,12 +90,10 @@ a.download:link,a.download:visited
 a.download:hover,a.download:active{background-color: green;}
 #up_div
 {
-	border: solid 1px rgb(230,230,230);
 	width: 700px;
-	height: 190px;
 	margin-top: 20px;
 }
-#img_div{margin-left: 20px;}
+#img_div{margin-left: 0px;}
 #title{font-size: 20px;}
 #word_div1{margin-top: 10px;}
 .one_comment
@@ -102,19 +103,17 @@ a.download:hover,a.download:active{background-color: green;}
 	float: left;
 }
 .user_inf{width: 100px;height:120px;float: left;}
-.comment_inf{width: 600px;float: left;font-size: 14px;}
-.user_img{position:relative;left:10px;top:10px;width: 60px;height:60px;}
-.user_name{position: relative;font-size: 13px;width: 80px;text-align: center;}
-.pub_date{position: relative;top:-10px;left: 10px;font-size: 13px;}
-.comment_star{position: relative;top: 10px;}
-#up_comment{width: 698px;height: 50px;border: solid 1px rgb(230,230,230);margin-top: -10px;}
-#inner_comment{position: relative;top: 15px;}
-#comment_text{position: relative;left: 180px;}
-#comment_search{position: relative;left: 180px;border:none;width: 70px;height: 22px; background-color: rgb(122,199,32);color: white;}
+.comment_inf{width: 690px;float: left;font-size: 14px;margin-left:10px;}
+.c_date{float:left;height:25px;margin-left:530px;width:160px;}
+#up_comment,#up_up{width: 698px;height: 50px;border: solid 1px rgb(230,230,230);float:left;}
+#up_up{margin-top:20px;}
+#comment_text{position:relative;left:170px;}
+#comment_search{position: relative;left: 170px;border:none;width: 70px;height: 22px; background-color: rgb(122,199,32);color: white;}
 #tijiao_comment{position: relative;border:none;width: 70px;height: 22px; background-color: rgb(122,199,32);
 	color: white;
 }
 #user_comment{font-family: "Microsoft YaHei";}
+#inner_comment{float:left;margin-left:10px;margin-top:15px;}
 #shang_panel
 {
 	width:342px;
@@ -144,5 +143,10 @@ a.download:hover,a.download:active{background-color: green;}
 .re_img_div{float: left;width: 130px;height: 140px;}
 .re_name_div{float: left;width: 150px;height: 140px;margin-top: 20px;}
 .re_download{width: 100px;display: inline-block;text-decoration: none;background-color: rgb(122,199,32);
-text-align: center;padding-top: 5px;padding-bottom: 5px;color: white;position: relative;top: -20px;}
+text-align: center;padding-top: 5px;padding-bottom: 5px;color: white;position: relative;top: 0px;}
 .choose{cursor: hand;}
+#page{float:left;text-align: center;width: 690px;}
+#real_page{display: inline-block;}
+.one_page{display: inline-block;width: 25px;height: 20px;text-decoration: none;
+text-align: center;color: rgb(80,80,80);border: 1px solid rgb(210,210,210);margin-left: 5px;}
+.blank{float:left;height: 40px;width: 690px;}
