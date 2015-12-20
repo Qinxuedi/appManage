@@ -27,3 +27,4 @@ urlpatterns = patterns('',
     (r'^s/(?P<path>.*)$', 'django.views.static.serve',{ 'document_root':'app/templates' }),
 )
 urlpatterns += staticfiles_urlpatterns()
+#waqxp
