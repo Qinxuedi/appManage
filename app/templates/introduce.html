@@ -124,12 +124,15 @@
                 </div>
                 <div id='up_comment'>
                     <div id='inner_comment'>
-                        <form>
+                        <form action='/search_comment/' onsubmit="return validate_form(this)" method='post'>
+                            {% csrf_token %}
                             <input name='radiobutton' type='radio' value='android' checked='checked'/>安卓平台
                             <input name='radiobutton' type='radio' value='iphone'/>iphone平台
                             <input name='radiobutton' type='radio' value='ipad'/>ipad平台
+                        </form>
+                        <form action={{search_comment_url}} onsubmit="return validate_form(this)" method='post'>
                             {% csrf_token %}
-                            <input type='text' id='comment_text'>
+                            <input type='text' name='keyword' id='comment_text'>
                             <input type='submit' value='搜索评论' id='comment_search'/>
                         </form>
                     </div>
