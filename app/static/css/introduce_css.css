@@ -107,8 +107,8 @@ a.download:hover,a.download:active{background-color: green;}
 .c_date{float:left;height:25px;margin-left:530px;width:160px;}
 #up_comment,#up_up{width: 698px;height: 50px;border: solid 1px rgb(230,230,230);float:left;}
 #up_up{margin-top:20px;}
-#comment_text{position:relative;left:170px;}
-#comment_search{position: relative;left: 170px;border:none;width: 70px;height: 22px; background-color: rgb(122,199,32);color: white;}
+#comment_text{position:relative;left:400px;top: -37px; }
+#comment_search{position: relative;left:400px;top: -37px;border:none;width: 70px;height: 22px; background-color: rgb(122,199,32);color: white;}
 #tijiao_comment{position: relative;border:none;width: 70px;height: 22px; background-color: rgb(122,199,32);
 	color: white;
 }

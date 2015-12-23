@@ -10,6 +10,11 @@ import requests
 import urllib2,os
 # Create your views here.
 catch=False
+all_comments=[]
+all_comments_android=[]
+all_comments_iphone=[]
+all_comments_ipad=[]
+now_platform=3
 
 def first(request):
     headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
@@ -384,6 +389,11 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 def introduction_app(request):
+    global all_comments_android,all_comments_iphone,all_comments_ipad,all_comments
+    all_comments=[]
+    all_comments_android=[]
+    all_comments_iphone=[]
+    all_comments_ipad=[]
     headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
     app_name = request.GET['app_name'].encode('utf8')
 
@@ -684,7 +694,7 @@ def introduction_app(request):
                 comment_page=i
                 break
     down=True
-    search_comment_url='/search_comment/'+comment_id+'/'+str(comment_page)+'/'
+    search_comment_url='/search_comment/'
     if comment_page<=1:
         down=False
     show=[]
@@ -698,6 +708,19 @@ def introduction_app(request):
         tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
     for item in tmp:
         comments.append((item[0],item[2]))
+
+    for i in range(1,comment_page+1):
+        comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+str(i)
+        comment_value=requests.get(comment_url,headers=headers).text
+        tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
+        for item in tmp:
+            all_comments.append((item[0],item[2]))
+            if len(item[0])%3==2:
+                all_comments_android.append((item[0],item[2]))
+            elif len(item[0])%3==1:
+                all_comments_iphone.append((item[0],item[2]))
+            else:
+                all_comments_ipad.append((item[0],item[2]))
 
     app_name = request.GET['app_name'].encode('utf8')
     recommend=True
@@ -736,18 +759,35 @@ def t(x,y):
     return -cmp(lst1,lst2)
 
 def get_page(request):
-    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
+    global all_comments_android,all_comments_iphone,all_comments_ipad,all_comments
     result={}
-    comment_id=request.GET['comment_id']
     page_id=request.GET['page_id']
-    #print 'page_id',page_id
-    comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+page_id
-    comment_value=requests.get(comment_url,headers=headers).text
-    tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
+    now_platform=int(request.GET['now_platform'])
     comments=[]
-    for item in tmp:
-        comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[2]+"</label></div><br></div>")
-    #print 'comments',comments
+
+    print now_platform
+
+    if now_platform==3:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments)-1)
+        for item in all_comments[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif now_platform==2:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments_android)-1)
+        for item in all_comments_android[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif now_platform==1:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments_iphone)-1)
+        for item in all_comments_iphone[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    else:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments_ipad)-1)
+        for item in all_comments_ipad[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+
     length=len(comments)
     for i in range(1,length):
         comments[i]=comments[i-1]+comments[i]
@@ -757,19 +797,73 @@ def get_page(request):
     #print 'result',result
     return HttpResponse(result,content_type='application/json')
 
-def search_comment(request,arg1,arg2):
-    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
-    keyword=request.POST['keyword']
-    comment_id=arg1
-    comment_page=arg2
+def get_platform_init(request):
+    global now_platform
+    print 'I am in get_platform'
+    result={}
+    platform_id=request.GET['platform_id']
+    now_platform=int(platform_id)
     comments=[]
-    for i in range(1,int(comment_page)+1):
-        comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+str(i)
-        comment_value=requests.get(comment_url,headers=headers).text
-        tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
-        for item in tmp:
+    comments.append("<div id='real_comment'>")
+    pages=0
+    if platform_id=='3':
+        pages=len(all_comments)
+        print 'pages=len(all_comments)',pages
+        for item in all_comments[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif platform_id=='2':
+        pages=len(all_comments_android)
+        for item in all_comments_android[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif platform_id=='1':
+        pages=len(all_comments_iphone)
+        for item in all_comments_iphone[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    else:
+        pages=len(all_comments_ipad)
+        for item in all_comments_ipad[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    if pages%10==0:
+        pages=pages/10
+    else:
+        pages=pages/10+1
+    comments.append("</div><div class='blank' id='blank1'></div><div id='page'><div id='real_page'>")
+
+    if pages>0:
+        comments.append("<a href='#up_up' class='one_page' onclick='return click_page(this)' style='background: rgb(122,199,32);'>1</a>")
+    
+    for i in range(2,pages+1):
+        comments.append("<a href='#up_up' class='one_page' onclick='return click_page(this)'>"+str(i)+"</a>")
+    length=len(comments)
+    for i in range(1,length):
+        comments[i]=comments[i-1]+comments[i]
+
+    result=comments[length-1]
+    result=json.dumps(result)
+    #print 'result',result
+    return HttpResponse(result,content_type='application/json')
+
+def search_comment(request):
+    global now_platform
+    keyword=request.POST['keyword']
+
+    comments=[]
+    if now_platform==3:
+        for item in all_comments:
             if keyword in item[0]:
-                comments.append((item[0],item[2]))
+                comments.append((item[0],item[1]))
+    elif now_platform==2:
+        for item in all_comments_android:
+            if keyword in item[0]:
+                comments.append((item[0],item[1]))
+    elif now_platform==1:
+        for item in all_comments_iphone:
+            if keyword in item[0]:
+                comments.append((item[0],item[1]))
+    else:
+        for item in all_comments_ipad:
+            if keyword in item[0]:
+                comments.append((item[0],item[1]))
     return render_to_response('search_comment.html',locals(),context_instance=RequestContext(request))
 
 
