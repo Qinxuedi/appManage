@@ -1,0 +1,59 @@
+<html>
+<head>
+	<script type="text/javascript" src="/static/js/first_js.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search_comment_css.css" />
+</head>
+<body>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="" style='background:rgb(66,139,202);'>软件</a></li>
+		<li><a class='first' href="/classify/1453/1/">分类</a></li>
+		<li><a class='first' href="/rank/1/">排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/">每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="/my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+	<div id='comment'>
+		<div id='head_comment'>
+			<label id='head_label'>搜索「{{keyword}}」的结果如下：</label>
+		</div>
+		<div id='body_comment'>
+			{% for comment in comments %}
+			<div id='real_comment'>
+				<div id="image_box"><img src="/static/images/user.jpg" id='user_image'/></div> 
+				<div id='date_box'><label>{{comment.1}}</label></div>
+				<div id='comment_box'><p>{{comment.0}}</p></div>
+				<div id='blank_box'></div>
+			</div>
+			{% endfor %}
+			<div id='bottom_blank'></div>
+		</div>
+	</div>
+	
+</div>
+</body>
+</html>

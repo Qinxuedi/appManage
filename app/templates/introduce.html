@@ -1,0 +1,197 @@
+<html>
+<head>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/introduce_css.css" />
+    <script type="text/javascript" src="/static/js/introduce_js.js"></script>
+    <script type="text/javascript">
+    
+    </script>
+</head>
+<body onload=init()>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="" style='background:rgb(66,139,202)'>软件</a></li>
+		<li><a class='first' href="/classify/1453/1/">分类</a></li>
+		<li><a class='first' href="/rank/1/">排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/">每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="/my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %}
+		</li>
+	</ul>
+	</div>
+
+
+    <div id='left_div'>
+        <div id='inner_div'>
+            <div id='up_div'>
+                <div id='img_div'>
+                    <img src={{img3}} class='my'><br><br><br>
+                </div>
+                <div id="word_div">
+                    <p id='title'><strong>{{app_name}}</strong></p>
+                    <p>{{title3}}</p>
+                </div>
+                <div id='choose_div' >
+                    <button onclick="chooseDiv(this,'android')" class='choose' id='most_left'>安卓平台</button>
+                    <button onclick="chooseDiv(this,'iphone')" class='choose'>iphone平台</button>
+                    <button onclick="chooseDiv(this,'ipad')" class='choose'>ipad平台</button>
+                    <button id='most_right' class='choose'></button>
+                </div>
+
+                <div id="android" class="classify">
+                    {% for item in v3 %}
+                    <div class="item">
+                        <div class="version"><label>版本信息:</label><label>{{item.0}}</label></div>
+                        <div class="big"><label>文件大小:</label><label>{{item.1}}</label></div>
+                        <div class="star">
+                            <img src={{item.2.0}}>
+                            <img src={{item.2.1}}>
+                            <img src={{item.2.2}}>
+                            <img src={{item.2.3}}>
+                            <img src={{item.2.4}}>
+                        </div>
+                        <div class="from"><label>来自</label><a href={{item.3}}>{{item.4}}</a></div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id="iphone" class="classify" style='display:none'>
+                    {% for item in v1 %}
+                    <div class="item">
+                        <div class="version"><label>版本信息:</label><label>{{item.0}}</label></div>
+                        <div class="big"><label>文件大小:</label><label>{{item.1}}</label></div>
+                        <div class="star">
+                            <img src={{item.2.0}}>
+                            <img src={{item.2.1}}>
+                            <img src={{item.2.2}}>
+                            <img src={{item.2.3}}>
+                            <img src={{item.2.4}}>
+                        </div>
+                        <div class="from"><label>来自</label><a href={{item.3}}>{{item.4}}</a></div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id="ipad" class="classify" style='display:none'>
+                    {% for item in v2 %}
+                    <div class="item">
+                        <div class="version"><label>版本信息:</label><label>{{item.0}}</label></div>
+                        <div class="big"><label>文件大小:</label><label>{{item.1}}</label></div>
+                        <div class="star">
+                            <img src={{item.2.0}}>
+                            <img src={{item.2.1}}>
+                            <img src={{item.2.2}}>
+                            <img src={{item.2.3}}>
+                            <img src={{item.2.4}}>
+                        </div>
+                        <div class="from"><label>来自</label><a href={{item.3}}>{{item.4}}</a></div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+            </div>
+
+
+
+            <div id='comment'>
+                <input type="hidden" id="app_id" value={{comment_id}} />
+                <input type="hidden" id="page_id" value={{comment_page}} />
+                <div id="up_up">
+                    <div style="float:left;margin-left:15px;"><p>网友评论</p></div>
+                </div>
+                <div id='up_comment'>
+                    <div id='inner_comment'>
+                        <form action='/search_comment/' onsubmit="return validate_form(this)" method='post'>
+                            {% csrf_token %}
+                            <input name='radiobutton' type='radio' value='android' checked='checked'/>安卓平台
+                            <input name='radiobutton' type='radio' value='iphone'/>iphone平台
+                            <input name='radiobutton' type='radio' value='ipad'/>ipad平台
+                        </form>
+                        <form action={{search_comment_url}} onsubmit="return validate_form(this)" method='post'>
+                            {% csrf_token %}
+                            <input type='text' name='keyword' id='comment_text'>
+                            <input type='submit' value='搜索评论' id='comment_search'/>
+                        </form>
+                    </div>
+                </div>
+                <div id='real_comment'>
+                    {% for comment in comments %}
+                    <div class='one_comment'>
+                        <div class='comment_inf'>
+                            <p class='main_comment'>{{comment.0}}</p>
+                        </div>
+                        <div class="c_date"><label>发布日期:</label><label>{{comment.1}}</label></div><br>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class='blank' id='blank1'></div>
+
+                <div id='page'>
+                    <a href="#up_up" id='up_page' style="display: none;width: 55px;height: 20px;text-decoration: none;text-align: center;color: rgb(80,80,80);border: 1px solid rgb(210,210,210);" onclick="return up_page()">上一页</a>
+
+                    <div id='real_page'>
+                        {% for item in show %}
+                        <a href="#up_up" class='one_page' onclick="return click_page(this)">{{item}}</a>
+                        {% endfor %}
+                    </div>
+
+                    {% if down %}
+                    <a href="#up_up" id='down_page' style="display: inline-block;width: 55px;height: 20px;text-decoration: none;text-align: center;color: rgb(80,80,80);border: 1px solid rgb(210,210,210);" onclick="return down_page()">下一页</a>
+                    {% endif %}
+                </div>
+
+                <div class='blank'></div>
+
+            </div>
+
+        <br><br><br>
+        </div>
+    </div>
+
+    {% if recommend %}
+    <div id='right_div' >
+        <div id='shang_panel'>
+            <p style='position:relative;left:10px;top:5px;'>同类推荐</p>
+        </div>
+        {% for app in rec %}
+        <div class='xia_panel' id='xia_panel1' onmouseover="mover(this,'re1')" onmouseout="mout(this,'re1')">
+            <div class='re_img_div'>
+                <img src={{app.0}} class='re_img'>
+            </div>
+            <div class='re_name_div'>
+                <p class='re_name'><strong>{{app.1}}</strong></p>
+                <a href={{app.2}} class='re_download' id='re1'>立即下载</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+</div>
+</body>
+</html>

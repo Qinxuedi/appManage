@@ -1,0 +1,156 @@
+<html>
+<head>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/first_js.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+</head>
+<body  onload=slide()>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/" style='background:rgb(66,139,202);'>首页</a></li>
+		<li><a class='first' href="">软件</a></li>
+		<li><a class='first' href="/classify/1453/1/">分类</a></li>
+		<li><a class='first' href="/rank/1/">排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/">每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="/my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+	<br>
+
+	<div id='img_div'>
+		<div>
+		<img id='picture' src="/static/images/first/1.jpg" width="687px" height="287px"/>
+		</div>
+			
+		<div id='bottom_png'>
+		<img src="/static/images/first/bottom.png" width="687" height="40"/>
+		</div>
+			
+		<div id='choose_png' align='center'>
+			<img id='one' onmouseover="mover('one')" onmouseout="mout('one')" src="/static/images/first/sleepy_button.png" width="20" height="10"/>
+			<img id='two' onmouseover="mover('two')" onmouseout="mout('two')" src="/static/images/first/sleepy_button.png" width="20" height="10"/>
+			<img id='three' onmouseover="mover('three')" onmouseout="mout('three')" src="/static/images/first/sleepy_button.png" width="20" height="10"/>
+			<img id='four' onmouseover="mover('four')" onmouseout="mout('four')" src="/static/images/first/sleepy_button.png" width="20" height="10"/>
+			<img id='five' onmouseover="mover('five')" onmouseout="mout('five')" src="/static/images/first/sleepy_button.png" width="20" height="10"/>
+		</div>
+	</div>
+
+	<div id='news_div'>
+		<a href="#" class='lead' style='background:rgb(92,184,92);'>视频</a>
+		<a href="/introduction/?app_name=爱奇艺视频" class='lead_txt'>跑男来了 快来爱奇艺，全网独播</a><br><br>
+		<a href="#" class='lead' style='background:rgb(92,184,92);'>社交</a>
+		<a href="http://www.baidu.com" class='lead_txt'>繁星直播  屌丝逆袭女神的聊天交友神器</a><br><br>
+		<a href="#" class='lead'>专题</a>
+		<a href="/today/2015-11-6/" class='lead_txt'>午餐吃什么 最美美食宝典 吃什么不用愁！</a><br><br>
+		<a href="#" class='lead'>专题</a>
+		<a href="http://www.baidu.com" class='lead_txt'>世界那么大，股市要牵挂 8款软件助你把握股票牛市</a><br><br>
+		<a href="#" class='lead'>教育</a>
+		<a href="http://www.baidu.com" class='lead_txt'>留学管家 专注新加坡中小学留学全程服务</a><br><br>
+		<a href="#" class='lead' style='background:rgb(255,105,105);'>推荐</a>
+		<a href="http://www.baidu.com" class='lead_txt'>智力题精选 每天做几道智力题大脑越用越聪明</a><br><br>
+		<a href="#" class='lead' style='background:rgb(255,105,105);'>推荐</a>
+		<a href="http://www.baidu.com" class='lead_txt'>将你变老  想知道自己变老后是什么样子吗</a><br><br>
+	</div>
+	
+
+	<div id='hot_div'>
+		<img src="/static/images/first/hot.png/" class='guide_img'><br><br>
+		<div class='one_app' style='margin-left:0px;'>
+			<a href={{hot_first.url}} title={{hot_first.name}}><img src={{hot_first.pic_url}} class='app'/></a>
+			<a href={{hot_first.url}} class='app_btn' title={{hot_first.name}}>{{hot_first.show}}</a>
+		</div>
+		{% for app in v1 %}
+		<div class='one_app'>
+			<a href={{app.url}} title={{app.name}}><img src={{app.pic_url}} class='app'/></a>
+			<a href={{app.url}} class='app_btn' title={{app.name}}>{{app.show}}</a>
+		</div>
+		{% endfor %}
+
+	</div><br><br>
+
+	<div id='new_div'>
+		<img src="/static/images/first/new.png/" class='guide_img'><br><br>
+		<div class='one_app' style='margin-left:0px;'>
+			<a href={{new_first.url}} title={{new_first.name}}><img src={{new_first.pic_url}} class='app'/></a>
+			<a href={{new_first.url}} class='app_btn' title={{new_first.name}}>{{new_first.show}}</a>
+		</div>
+		{% for app in v2 %}
+		<div class='one_app'>
+			<a href={{app.url}} title={{app.name}}><img src={{app.pic_url}} class='app'/></a>
+			<a href={{app.url}} class='app_btn' title={{app.name}}>{{app.show}}</a>
+		</div>
+		{% endfor %}
+
+	</div><br><br>
+
+	<div id='fivestar_div'>
+		<img src="/static/images/first/fivestar.png/" class='guide_img'><br><br>
+		<div class='one_app' style='margin-left:0px;'>
+			<a href={{fivestar_first.url}} title={{fivestar_first.name}}><img src={{fivestar_first.pic_url}} class='app'/></a>
+			<a href={{fivestar_first.url}} class='app_btn' title={{fivestar_first.name}}>{{fivestar_first.show}}</a>
+		</div>
+		{% for app in v3 %}
+		<div class='one_app'>
+			<a href={{app.url}} title={{app.name}}><img src={{app.pic_url}} class='app'/></a>
+			<a href={{app.url}} class='app_btn' title={{app.name}}>{{app.show}}</a>
+		</div>
+		{% endfor %}
+	</div><br><br>
+
+	<div id='must_div'>
+		<img src="/static/images/first/must.png/" class='guide_img'><br><br>
+		<div class='one_app' style='margin-left:0px;'>
+			<a href={{must_first.url}} title={{must_first.name}}><img src={{must_first.pic_url}} class='app'/></a>
+			<a href={{must_first.url}} class='app_btn' title={{must_first.name}}>{{must_first.show}}</a>
+		</div>
+		{% for app in v4 %}
+		<div class='one_app'>
+			<a href={{app.url}} title={{app.name}}><img src={{app.pic_url}} class='app'/></a>
+			<a href={{app.url}} class='app_btn' title={{app.name}}>{{app.show}}</a>
+		</div>
+		{% endfor %}
+
+	</div><br><br>
+
+	<div id='games_div'>
+		<img src="/static/images/first/games.png/" class='guide_img'><br><br>
+		<div class='one_app' style='margin-left:0px;'>
+			<a href={{game_first.url}} title={{game_first.name}}><img src={{game_first.pic_url}} class='app'/></a>
+			<a href={{game_first.url}} class='app_btn' title={{game_first.name}}>{{game_first.show}}</a>
+		</div>
+		{% for app in v5 %}
+		<div class='one_app'>
+			<a href={{app.url}} title={{app.name}}><img src={{app.pic_url}} class='app'/></a>
+			<a href={{app.url}} class='app_btn' title={{app.name}}>{{app.show}}</a>
+		</div>
+		{% endfor %}
+	</div><br><br>
+	<div style='width:1200px;height:50px;float:left;'></div>
+
+
+</div>
+</body>
+</html>

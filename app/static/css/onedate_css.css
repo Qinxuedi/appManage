@@ -1,0 +1,127 @@
+#shang_panel,#recent_shang
+{
+	width:342px;
+	height: 30px;
+	background: rgb(247,247,247);
+	text-align:left;
+	font-size: 15px;
+	color: rgb(101,101,101);
+}
+.xia_panel
+{
+	position: relative;
+	background-color: rgb(255,255,255);
+	border-top: 1px solid rgb(230,230,230);
+	border-left: none;
+	width: 342px;
+	height: 70px;
+}
+#recent_xia
+{
+	background-color: rgb(255,255,255);
+	border-top: 1px solid rgb(210,210,210);
+	border-left: none;
+	width: 342px;
+	height: 160px;
+}
+body
+{
+	background: rgb(238,238,238);
+}
+img.topic1
+{
+	width: 60px;
+	height: 40px;
+	position: relative;
+	left: 5px;
+	top: 15px;
+}
+#right_div,#recent
+{
+	float:left;
+	margin-left: 15px;
+	width: 355px;
+}
+.date_topic
+{
+	display: inline-block;
+	width: 80px;
+	text-decoration: none;
+	text-align: center;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background-color: rgb(63,138,201);
+	color: white;
+	font-size: 12px;
+	position: relative;
+	left: 20px;
+}
+.right_c
+{
+	font-size: 13px;
+	position: relative;
+	left: 75px;
+	top: -30px;
+	text-decoration: none;
+	color: rgb(155,155,155);
+}
+.right_href
+{
+	text-decoration: none;
+	color: rgb(66,139,202);
+}
+#left_div
+{
+	width: 828px;
+	background-color: white;
+	float: left;
+	margin-top: 15px;
+	border: 1px solid rgb(230,230,230);
+}
+#inner_div
+{
+	width: 745px;
+	position: relative;
+	left: 40px;
+}
+img.my{position: relative;left: 80px;}
+p.suo{ text-indent: 2em; }
+p{color: rgb(60,60,60);}
+#head_div
+{
+	border-bottom: 1px solid rgb(230,230,230);
+	height: 100px;
+	margin-top: -15px;
+	text-align: center;
+}
+.inf_div
+{
+	position: relative;
+	left: 140px;
+	top: -20px;
+	width: 550px;
+	height: 30px;
+	color: rgb(155,155,155);
+}
+.top_inf
+{
+	display: inline-block;
+	color: rgb(155,155,155);
+}
+a.download:link,a.download:visited
+{
+	display: block;
+	text-decoration: none;
+	width: 100px;
+	background-color: rgb(92,184,92);
+	position: relative;
+	left: 300px;
+	text-align: center;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	color: #ffffff;
+}
+a.download:hover,a.download:active
+{
+	background-color: green;
+}
