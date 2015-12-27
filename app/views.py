@@ -8,6 +8,7 @@ from django.core.servers.basehttp import FileWrapper
 import re,json
 import requests
 import urllib2,os
+<<<<<<< HEAD
 # Create your views here.
 catch=False
 all_comments=[]
@@ -19,6 +20,16 @@ now_platform=3
 def first(request):
     headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
     
+=======
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+# Create your views here.
+catch=False
+
+def first(request):
+    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
+    #print request.session.get('username','anybody')
+>>>>>>> G
     if catch==True:
         apps=recommend_app.objects.filter(position=1).delete()
         html_2_5_search = 'http://app.91.com'
@@ -204,7 +215,12 @@ def first(request):
     v5=recommend_app.objects.filter(position=5)
     game_first=v5[0]
     v5=v5[1:]
+<<<<<<< HEAD
 
+=======
+    log=request.session.get('username')
+    name=request.session.get('username')
+>>>>>>> G
     return render_to_response('first.html',locals(),context_instance=RequestContext(request))
 
 def classify(request,arg1,arg2):
@@ -291,7 +307,13 @@ def classify(request,arg1,arg2):
             fp.close
         url='/introduction/?app_name='+''.join(name)
         lst.append((''.join(name),'/static/images/classify/'+str(id1)+'/'+str(id2)+'/'+str(i)+'.jpg',lst2[i][3],url))
+<<<<<<< HEAD
     return render_to_response('classify.html',locals(),context_instance=RequestContext(request))
+=======
+        log=request.session.get('username')
+        name=request.session.get('username')
+        return render_to_response('classify.html',locals(),context_instance=RequestContext(request))
+>>>>>>> G
 
 def rank(request,arg):
     headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
@@ -340,6 +362,7 @@ def rank(request,arg):
         for j in range(star+1,6):
             tmp.append("/static/images/app_images/greystar.png")
         lst.append((v[i].pic_url,v[i].name,tmp,v[i].download,v[i].rank,v[i].url))
+<<<<<<< HEAD
     print lst
     return render_to_response('rank.html',locals(),context_instance=RequestContext(request))
 
@@ -394,6 +417,57 @@ def introduction_app(request):
     all_comments_android=[]
     all_comments_iphone=[]
     all_comments_ipad=[]
+=======
+    #print lst
+    log=request.session.get('username')
+    name=request.session.get('username')
+    return render_to_response('rank.html',locals(),context_instance=RequestContext(request))
+
+def my(request):
+    log=request.session.get('username')
+    name=request.session.get('username')
+    return render_to_response('my.html',locals(),context_instance=RequestContext(request))
+
+def today(request):
+    log=request.session.get('username')
+    name=request.session.get('username')
+    return render_to_response('today.html',locals(),context_instance=RequestContext(request))
+
+def logins(request):
+    if 'name' in request.POST and request.POST['name']:
+        name = request.POST['name']
+        password = request.POST['mima']
+        user = authenticate(username=name, password=password)
+        if user is not None and user.is_active:
+            login(request, user)
+            request.session['username'] = name
+            return render_to_response('my.html',{'log':True,'name':name},context_instance=RequestContext(request))
+        else:
+            return render_to_response('login.html',{'exit':True,'correct':False},context_instance=RequestContext(request))
+    return render_to_response('login.html',{'exit':True,'correct':True},context_instance=RequestContext(request))
+
+def register(request):
+    if 'email' in request.POST and request.POST['email']:
+        name=request.POST['name']
+        email=request.POST['email']
+        password=request.POST['mima1']
+        mima1=request.POST['mima1']
+        mima2=request.POST['mima2']
+        user=User.objects.filter(username=name)
+        if user or mima1!=mima2:
+            return render_to_response('register.html',{'correct':False},context_instance=RequestContext(request))
+        else:
+            user = User.objects.create_user(name, email, password)
+            user.save()
+            return render_to_response('login.html',{'correct':True},context_instance=RequestContext(request))
+    return render_to_response('register.html',{'correct':True},context_instance=RequestContext(request))
+
+def logout(request):
+    del request.session['username']
+    return render_to_response('my.html',{'log':False},context_instance=RequestContext(request))
+
+def introduction_app(request):
+>>>>>>> G
     headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
     app_name = request.GET['app_name'].encode('utf8')
 
@@ -694,7 +768,11 @@ def introduction_app(request):
                 comment_page=i
                 break
     down=True
+<<<<<<< HEAD
     search_comment_url='/search_comment/'
+=======
+    search_comment_url='/search_comment/'+comment_id+'/'+str(comment_page)+'/'
+>>>>>>> G
     if comment_page<=1:
         down=False
     show=[]
@@ -709,6 +787,7 @@ def introduction_app(request):
     for item in tmp:
         comments.append((item[0],item[2]))
 
+<<<<<<< HEAD
     for i in range(1,comment_page+1):
         comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+str(i)
         comment_value=requests.get(comment_url,headers=headers).text
@@ -722,6 +801,8 @@ def introduction_app(request):
             else:
                 all_comments_ipad.append((item[0],item[2]))
 
+=======
+>>>>>>> G
     app_name = request.GET['app_name'].encode('utf8')
     recommend=True
     try:
@@ -738,7 +819,12 @@ def introduction_app(request):
     except Exception,ex:
         recommend=False
         pass
+<<<<<<< HEAD
 
+=======
+    log=request.session.get('username')
+    name=request.session.get('username')
+>>>>>>> G
     return render_to_response('introduce.html',locals(),context_instance=RequestContext(request))
 
 def t(x,y):
@@ -759,6 +845,7 @@ def t(x,y):
     return -cmp(lst1,lst2)
 
 def get_page(request):
+<<<<<<< HEAD
     global all_comments_android,all_comments_iphone,all_comments_ipad,all_comments
     result={}
     page_id=request.GET['page_id']
@@ -834,6 +921,20 @@ def get_platform_init(request):
     
     for i in range(2,pages+1):
         comments.append("<a href='#up_up' class='one_page' onclick='return click_page(this)'>"+str(i)+"</a>")
+=======
+    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
+    result={}
+    comment_id=request.GET['comment_id']
+    page_id=request.GET['page_id']
+    #print 'page_id',page_id
+    comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+page_id
+    comment_value=requests.get(comment_url,headers=headers).text
+    tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
+    comments=[]
+    for item in tmp:
+        comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[2]+"</label></div><br></div>")
+    #print 'comments',comments
+>>>>>>> G
     length=len(comments)
     for i in range(1,length):
         comments[i]=comments[i-1]+comments[i]
@@ -843,6 +944,7 @@ def get_platform_init(request):
     #print 'result',result
     return HttpResponse(result,content_type='application/json')
 
+<<<<<<< HEAD
 def search_comment(request):
     global now_platform
     keyword=request.POST['keyword']
@@ -864,6 +966,21 @@ def search_comment(request):
         for item in all_comments_ipad:
             if keyword in item[0]:
                 comments.append((item[0],item[1]))
+=======
+def search_comment(request,arg1,arg2):
+    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
+    keyword=request.POST['keyword']
+    comment_id=arg1
+    comment_page=arg2
+    comments=[]
+    for i in range(1,int(comment_page)+1):
+        comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+str(i)
+        comment_value=requests.get(comment_url,headers=headers).text
+        tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
+        for item in tmp:
+            if keyword in item[0]:
+                comments.append((item[0],item[2]))
+>>>>>>> G
     return render_to_response('search_comment.html',locals(),context_instance=RequestContext(request))
 
 

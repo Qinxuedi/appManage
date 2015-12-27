@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
 <head>
 	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
@@ -71,4 +72,79 @@
 
 </div>
 </body>
+=======
+<html>
+<head>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search_css.css" />
+    <script type="text/javascript">
+        function mover(element)
+        {
+            element.style.background='rgb(248,252,254)'
+        }
+        function mout(element)
+        {
+            element.style.background='rgb(255,255,255)'
+        }
+    </script>
+</head>
+<body>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="" style='background:rgb(66,139,202)'>软件</a></li>
+		<li><a class='first' href="/classify/1453/1/">分类</a></li>
+		<li><a class='first' href="/rank/1/">排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/">每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="/my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+	<div id='left_div'>
+		<div id='up_panel'><p>搜索「{{app_name}}」的结果共有{{number}}个:</p></div>
+
+        {% for app in lst %}
+        <div class='down_panel' onmouseover='mover(this)' onmouseout='mout(this)'>
+            <div class='my_img'>
+                <img src="{{app.2}}" class='my'>
+            </div>
+            <div class='my_inf'>
+                <p style='font-size:17px;'><strong>{{app.0}}</strong></p>
+                <p>{{app.1}}</p>
+            </div>
+            <a href={{app.3}} class='download'>立即下载</a>
+        </div>
+        {% endfor %}
+
+
+        <br><br><br>
+	</div>
+
+
+</div>
+</body>
+>>>>>>> G
 </html>

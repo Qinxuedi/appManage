@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html><!--资讯阅读-->
 <head>
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
@@ -227,4 +228,235 @@
 
 </div>
 </body>
+=======
+<html><!--资讯阅读-->
+<head>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/first_js.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/classify_css.css" />
+</head>
+<body  onload=slide()>
+<div id='container'>
+
+    <div id='menu'>
+    <ul>
+        <li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+        <li><a class='first' href="/">首页</a></li>
+        <li><a class='first' href="">软件</a></li>
+        <li><a class='first' href="/classify/1453/1/" style='background:rgb(66,139,202);'>分类</a></li>
+        <li><a class='first' href="/rank/1/">排行</a></li>
+        <li><a class='first' href="/my/">我的</a></li>
+        <li><a class='first' href="/today/">每日专题</a></li>
+        <li>
+            <div>
+                <form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+                    {% csrf_token %}
+                    <input type='text' name='input' id='input_search'/>
+                    <input type='submit' value='搜索' id='input_submit'/>
+                </form>
+            </div>
+        </li>
+        <li>
+            {% if log %}
+            <a href="/my/" id='my_button'>{{name}}</a>
+            <a href="/logout/" id='logout_button'>退出</a>
+            {% else %}
+                <a href="/login/" id='login_button'>登录</a>
+                <a href="/register/" id='register_button'>注册</a>
+            {% endif %} 
+        </li>
+    </ul>
+    </div>
+
+    <div id='left_div'>
+        <div id='left_up'><p style='position:relative;left:10px;top:10px;'>应用</p></div>
+        <div class='left_down'>
+            {% if red.0 %}
+            <a href="/classify/1453/1/" class='h' style='color:rgb(122,199,32);'>资讯阅读</a><br>
+            {% else %}
+            <a href="/classify/1453/1/" class='h'>资讯阅读</a><br>
+            {% endif %}
+
+            {% if red.1 %}
+            <a href="/classify/1454/1/" class='h' style='color:rgb(122,199,32);'>聊天社交</a><br>
+            {% else %}
+            <a href="/classify/1454/1/" class='h'>聊天社交</a><br>
+            {% endif %}
+
+            {% if red.2 %}
+            <a href="/classify/1455/1/" class='h' style='color:rgb(122,199,32);'>短信通话</a><br>
+            {% else %}
+            <a href="/classify/1455/1/" class='h'>短信通话</a><br>
+            {% endif %}
+
+            {% if red.3 %}
+            <a href="/classify/1456/1/" class='h' style='color:rgb(122,199,32);'>购物消费</a><br>
+            {% else %}
+            <a href="/classify/1456/1/" class='h'>购物消费</a><br>
+            {% endif %}
+
+            {% if red.4 %}
+            <a href="/classify/1457/1/" class='h' style='color:rgb(122,199,32);'>学习办公</a><br>
+            {% else %}
+            <a href="/classify/1457/1/" class='h'>学习办公</a><br>
+            {% endif %}
+
+            {% if red.5 %}
+            <a href="/classify/1458/1/" class='h' style='color:rgb(122,199,32);'>金融理财</a><br>
+            {% else %}
+            <a href="/classify/1458/1/" class='h'>金融理财</a><br>
+            {% endif %}
+
+            {% if red.6 %}
+            <a href="/classify/1459/1/" class='h' style='color:rgb(122,199,32);'>主题美化</a><br>
+            {% else %}
+            <a href="/classify/1459/1/" class='h'>主题美化</a><br>
+            {% endif %}
+
+            {% if red.7 %}
+            <a href="/classify/1460/1/" class='h' style='color:rgb(122,199,32);'>音乐视频</a><br>
+            {% else %}
+            <a href="/classify/1460/1/" class='h'>音乐视频</a><br>
+            {% endif %}
+
+            {% if red.8 %}
+            <a href="/classify/1461/1/" class='h' style='color:rgb(122,199,32);'>摄影图像</a><br>
+            {% else %}
+            <a href="/classify/1461/1/" class='h'>摄影图像</a><br>
+            {% endif %}
+
+            {% if red.9 %}
+            <a href="/classify/1462/1/" class='h' style='color:rgb(122,199,32);'>地图导航</a><br>
+            {% else %}
+            <a href="/classify/1462/1/" class='h'>地图导航</a><br>
+            {% endif %}
+            
+            {% if red.10 %}
+            <a href="/classify/1463/1/" class='h' style='color:rgb(122,199,32);'>网络浏览</a><br>
+            {% else %}
+            <a href="/classify/1463/1/" class='h'>网络浏览</a><br>
+            {% endif %}
+            
+            {% if red.11 %}
+            <a href="/classify/1464/1/" class='h' style='color:rgb(122,199,32);'>系统安全</a><br>
+            {% else %}
+            <a href="/classify/1464/1/" class='h'>系统安全</a><br>
+            {% endif %}
+            
+            {% if red.12 %}
+            <a href="/classify/1465/1/" class='h' style='color:rgb(122,199,32);'>生活工具</a><br>
+            {% else %}
+            <a href="/classify/1465/1/" class='h'>生活工具</a><br>
+            {% endif %}
+            
+            {% if red.13 %}
+            <a href="/classify/1491/1/" class='h' style='color:rgb(122,199,32);'>文字输入</a><br>
+            {% else %}
+            <a href="/classify/1491/1/" class='h'>文字输入</a><br>
+            {% endif %}
+        
+        </div>
+    </div>
+
+    <div id='middle_div'>
+        {% for app in lst %}
+        <div class='middle_down'>
+            <div class='my_img'>
+                <img src={{app.1}} class='my'>
+            </div>
+            <div class='my_inf'>
+                <p style='font-size:17px;'><strong>{{app.0}}</strong></p>
+                <p>{{app.2}}</p>
+            </div>
+            <a href={{app.3}} class='download'>下载</a>
+        </div>
+        {% endfor %}
+
+        <div class='blank' id='blank1'></div>
+
+        <div id='page'>
+            {% if up %}
+                <a href={{up_href}} class='updown'>上一页</a>
+            {% endif %}
+
+            {% for item in show %}
+                {% if item.0 %}
+                    {% if item.1 %}
+                        <a href={{item.3}} style='background-color:rgb(122,199,32);' class='one_page'>{{item.2}}</a>
+                    {% else %}
+                        <a href={{item.3}} class='one_page'>{{item.2}}</a>
+                    {% endif %}
+                {% else %}
+                    <label>...</label>
+                {% endif %}
+            {% endfor %}
+
+            {% if down %}
+                <a href={{down_href}} class='updown'>下一页</a>
+            {% endif %}
+        </div>
+
+        <div class='blank'></div>
+    </div>  
+
+
+    <div id='right_div'>
+        <div id='right_up'><p style='position:relative;left:10px;top:10px;'>游戏</p></div>
+        <div class='right_down'>
+            {% if red.14 %}
+            <a href="/classify/1466/1/" class='h' style='color:rgb(122,199,32);'>动作射击</a><br>
+            {% else %}
+            <a href="/classify/1466/1/" class='h'>动作射击</a><br>
+            {% endif %}
+
+            {% if red.15 %}
+            <a href="/classify/1467/1/" class='h' style='color:rgb(122,199,32);'>角色冒险</a><br>
+            {% else %}
+            <a href="/classify/1467/1/" class='h'>角色冒险</a><br>
+            {% endif %}
+            
+            {% if red.16 %}
+            <a href="/classify/1468/1/" class='h' style='color:rgb(122,199,32);'>体育竞技</a><br>
+            {% else %}
+            <a href="/classify/1468/1/" class='h'>体育竞技</a><br>
+            {% endif %}
+            
+            {% if red.17 %}
+            <a href="/classify/1469/1/" class='h' style='color:rgb(122,199,32);'>策略模拟</a><br>
+            {% else %}
+            <a href="/classify/1469/1/" class='h'>策略模拟</a><br>
+            {% endif %}
+
+            {% if red.18 %}
+            <a href="/classify/1470/1/" class='h' style='color:rgb(122,199,32);'>休闲益智</a><br>
+            {% else %}
+            <a href="/classify/1470/1/" class='h'>休闲益智</a><br>
+            {% endif %}
+
+            {% if red.19 %}
+            <a href="/classify/1471/1/" class='h' style='color:rgb(122,199,32);'>模拟器</a><br>
+            {% else %}
+            <a href="/classify/1471/1/" class='h'>模拟器</a><br>
+            {% endif %}
+
+            {% if red.20 %}
+            <a href="/classify/1472/1/" class='h' style='color:rgb(122,199,32);'>网络游戏</a><br>
+            {% else %}
+            <a href="/classify/1472/1/" class='h'>网络游戏</a><br>
+            {% endif %}
+
+            {% if red.21 %}
+            <a href="/classify/1892/1/" class='h' style='color:rgb(122,199,32);'>修改器</a><br>
+            {% else %}
+            <a href="/classify/1892/1/" class='h'>修改器</a><br>
+            {% endif %}
+            
+        </div>
+    </div>
+
+</div>
+</body>
+>>>>>>> G
 </html>

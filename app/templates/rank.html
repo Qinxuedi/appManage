@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
 <head>
 	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
@@ -79,4 +80,87 @@
 
 </div>
 </body>
+=======
+<html>
+<head>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/first_js.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/rank_css.css" />
+</head>
+<body  onload=slide()>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="">软件</a></li>
+		<li><a class='first' href="/classify/1453/1/">分类</a></li>
+		<li><a class='first' href="/rank/1/" style='background:rgb(66,139,202);'>排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/">每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="/my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+    {% for app in lst %}
+    <div class='one'>
+        <div class='rank'><label>{{app.4}}</label></div>
+        <a href={{app.5}}><img src={{app.0}} class='my'></a>
+        <div class='inf'>
+            <a href={{app.5}} class='name'><strong>{{app.1}}</strong></a><br><br>
+            <img src={{app.2.0}}>
+            <img src={{app.2.1}}>
+            <img src={{app.2.2}}>
+            <img src={{app.2.3}}>
+            <img src={{app.2.4}}>
+            <p>{{app.3}}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class='blank'></div>
+
+    <div id='page'>
+        {% if up %}
+            <a href={{up_href}} class='updown'>上一页</a>
+        {% endif %}
+
+        {% for item in show %}
+            {% if item.1 %}
+                <a href={{item.2}} style='background-color:rgb(122,199,32);' class='one_page'>{{item.0}}</a>
+            {% else %}
+                <a href={{item.2}} class='one_page'>{{item.0}}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if down %}
+            <a href={{down_href}} class='updown'>下一页</a>
+        {% endif %}
+    </div>
+
+    <div class='blank'></div>
+
+</div>
+</body>
+>>>>>>> G
 </html>

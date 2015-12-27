@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
 <head>
 	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
@@ -275,4 +276,282 @@
 
 </div>
 </body>
+=======
+<html>
+<head>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/my_js.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/my_css.css" />
+</head>
+<body>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="">软件</a></li>
+		<li><a class='first' href="/classify/1453/1/">分类</a></li>
+		<li><a class='first' href="/rank/1/">排行</a></li>
+		<li><a class='first' href="/my/" style='background:rgb(66,139,202)'>我的</a></li>
+		<li><a class='first' href="/today/">每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+				<a href="/my/" id='my_button'>{{name}}</a>
+				<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+	<img src="/static/images/bg.png" id='bg'>
+	<div id='choose_div'>
+		<button id='choose1' class='choose' onclick='choose1()'>我的主页</a>
+		<button id='choose2' class='choose' onclick='choose2()'>编辑资料</a>
+	</div>
+
+	<div id='main_div'>
+		<div id='left_div'>
+			<div id='my_div'>
+				<div id='my_up'><p style='position:relative;left:10px;top:10px;'>我的软件</p></div>
+		        <div class='my_down' onmouseover='mover(this)' onmouseout='mout(this)'>
+		            <div class='my_img'>
+		                <img src="/static/images/app_images/wei_pin_hui/wei_pin_hui.png" class='my'>
+		            </div>
+		            <div class='my_inf'>
+		                <p style='font-size:17px;'><strong>唯品会</strong></p>
+		                <p>唯品会，一家专门做特卖的网站。</p>
+		                <p>版本：5.9.3&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：18.98MB</p>
+		            </div>
+		            <a href="" class='download'>查看</a>
+		        </div>	
+		        <div class='my_down' onmouseover='mover(this)' onmouseout='mout(this)'>
+		            <div class='my_img'>
+		                <img src="/static/images/app_images/mei_li_shuo/mei_li_shuo.png" class='my'>
+		            </div>
+		            <div class='my_inf'>
+		                <p style='font-size:17px;'><strong>美丽说</strong></p>
+	                	<p>只做正确流行款，奔跑吧兄弟3独家冠名商美丽说HIGO！</p>
+	                	<p>版本：7.2.2&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：14.10MB</p>
+		            </div>
+		            <a href="" class='download'>查看</a>
+		        </div>	
+		        <div class='my_down' onmouseover='mover(this)' onmouseout='mout(this)'>
+		            <div class='my_img'>
+		                <img src="/static/images/app_images/tian_mao/tian_mao.png" class='my'>
+		            </div>
+		            <div class='my_inf'>
+		                <p style='font-size:17px;'><strong>天猫</strong></p>
+		                <p>上天猫 就够了 时尚购物 正品网购</p>
+	                	<p>版本：5.11.0&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件大小：32.03MB</p>
+		            </div>
+		            <a href="" class='download'>查看</a>
+		        </div>	
+			</div>
+
+			<div id='collect_div'>
+				<div id='collect_up'><p style='position:relative;left:10px;top:10px;'>我的收藏</p></div>
+		        <div class='collect_down' onmouseover='collect_mover(this)' onmouseout='collect_mout(this)'>
+		        	<a href="" class='collect_href'>午餐吃什么 最全美食宝典，吃什么不用愁！</a>
+		        	<div class='inf_div'>
+		        		<img src="/static/images/today/love.png" class='top_inf'>
+		        		<p class='top_inf'>200</p>
+		        		<img src="/static/images/today/bag.png" class='top_inf'>
+		        		<p class='top_inf'>158</p>
+		        	</div>
+		        </div>
+		        <div class='collect_down' onmouseover='collect_mover(this)' onmouseout='collect_mout(this)'>
+		        	<a href="" class='collect_href'>世界那么大，股市要牵挂 安卓软件助你把握股票牛市</a>
+		        	<div class='inf_div'>
+		        		<img src="/static/images/today/love.png" class='top_inf'>
+		        		<p class='top_inf'>500</p>
+		        		<img src="/static/images/today/bag.png" class='top_inf'>
+		        		<p class='top_inf'>396</p>
+		        	</div>
+		        </div>
+		        <div class='collect_down' onmouseover='collect_mover(this)' onmouseout='collect_mout(this)'>
+		        	<a href="" class='collect_href'>秋光易逝，那些适合在秋天做的事</a>
+		        	<div class='inf_div'>
+		        		<img src="/static/images/today/love.png" class='top_inf'>
+		        		<p class='top_inf'>270</p>
+		        		<img src="/static/images/today/bag.png" class='top_inf'>
+		        		<p class='top_inf'>163</p>
+		        	</div>
+		        </div>
+			</div>
+
+
+			<div id='comment_div' >
+				<div id='comment_up'><p style='position:relative;left:10px;top:5px;'>我的评论</p></div>
+				<div class='comment_down'>
+					<div class='comment_inf'>
+						<a href="" class='comment_href'>唯品会</a>
+						<div class='comment_star'>
+			                <img src="/static/images/app_images/yellowstar.png">
+			                <img src="/static/images/app_images/yellowstar.png">
+			                <img src="/static/images/app_images/yellowstar.png">
+			                <img src="/static/images/app_images/yellowstar.png">
+			                <img src="/static/images/app_images/yellowstar.png">
+						</div>
+					</div>
+					<div class='comment_main'>
+						<p>界面很美观，而且上面的东西都是正品，真的比在商场里卖的便宜多了，特别实惠界面很美观，而且上面的东西都是正品，真的比在商场里卖的便宜多了，特别实惠界面很美观，而且上面的东西都是正品，真的比在商场里卖的便宜多了，特别实惠界面很美观，而且上面的东西都是正品，真的比在商场里卖的便宜多了，特别实惠界面很美观，而且上面的东西都是正品，真的比在商场里卖的便宜多了，特别实惠界面很美观，而且上面的东西都是正品，真的比在商场</p><br>
+					</div>
+				</div>
+				<div class='comment_down'>
+					<div class='comment_inf'>
+						<a href="" class='comment_href'>美丽说</a>
+						<div class='comment_star'>
+							<img src="/static/images/app_images/yellowstar.png">
+				            <img src="/static/images/app_images/yellowstar.png">
+				            <img src="/static/images/app_images/yellowstar.png">
+			                <img src="/static/images/app_images/yellowstar.png">
+			                <img src="/static/images/app_images/greystar.png">
+						</div>
+					</div>
+					<div class='comment_main'>
+						<p>好便宜的说~</p><br>
+					</div>	
+				</div>
+				<br><br><br><br>
+			</div>
+		</div>
+		
+		<div id='right_div'>
+			<div id='re_div'>
+				<div id='re_up'>
+					<p style='position:relative;left:10px;top:5px;'>猜你喜欢</p>
+					<a href="" class='more'>更多</a>
+				</div>
+		        <div class='re_down' onmouseover="re_mover(this,'re1')" onmouseout="re_mout(this,'re1')">
+		            <div class='re_img_div'>
+		                <img src="/static/images/app_images/tao_bao/tao_bao.png" class='re_img'>
+		            </div>
+		            <div class='re_name_div'>
+		                <p class='re_name'><strong>淘宝</strong></p>
+		                <div class='re_star'>
+		                    <img src="/static/images/app_images/yellowstar.png">
+		                    <img src="/static/images/app_images/yellowstar.png">
+		                    <img src="/static/images/app_images/yellowstar.png">
+		                    <img src="/static/images/app_images/greystar.png">
+		                    <img src="/static/images/app_images/greystar.png">
+		                </div>
+		                <a href="" class='re_download' id='re1' style='display:none;'>立即下载</a>
+		            </div>
+		        </div>
+		        <div class='re_down' onmouseover="re_mover(this,'re2')" onmouseout="re_mout(this,'re2')">
+		            <div class='re_img_div'>
+		                <img src="/static/images/app_images/jing_dong/jing_dong.png" class='re_img'>
+		            </div>
+		            <div class='re_name_div'>
+		                <p class='re_name'><strong>京东</strong></p>
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/greystar.png">
+		                <a href="" class='re_download' id='re2' style='display:none;'>立即下载</a>
+		            </div>
+		        </div>
+		        <div class='re_down' onmouseover="re_mover(this,'re3')" onmouseout="re_mout(this,'re3')">
+		            <div class='re_img_div'>
+		                <img src="/static/images/app_images/mei_li_shuo/mei_li_shuo.png" class='re_img'>
+		            </div>
+		            <div class='re_name_div'>
+		                <p class='re_name'><strong>大码美衣</strong></p>
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/greystar.png">
+		                <a href="" class='re_download' id='re3' style='display:none;'>立即下载</a>
+		            </div>
+		        </div>
+		        <div class='re_down' onmouseover="re_mover(this,'re4')" onmouseout="re_mout(this,'re4')">
+		            <div class='re_img_div'>
+		                <img src="/static/images/app_images/ju_hua_suan/ju_hua_suan.png" class='re_img'>
+		            </div>
+		            <div class='re_name_div'>
+		                <p class='re_name'><strong>聚划算</strong></p>
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <img src="/static/images/app_images/yellowstar.png">
+		                <a href="" class='re_download' id='re4' style='display:none;'>立即下载</a>
+		            </div>
+		        </div>
+			</div>
+		</div>
+
+
+		<div id='change_div' style='display:none;'>
+	        <div id='down_panel'>
+	        <form action='' onsubmit="return validate_form2(this)" method='post'>
+	            {% csrf_token %}
+	            <br><br>
+	            <label style='position:relative;left:20px;color:rgb(80,80,80);'>用户名</label>
+	            <input type='text' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:30px;" name='name'>
+	            <label id='one' style="color:red;left:62px;"></label>
+	            <br>
+
+	            <br>
+	            <label style='position:relative;left:33px;color:rgb(80,80,80);'>邮箱</label>
+	            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:44px;" name='mima'>
+	            <label id='one' style="color:red;left:62px;"></label>
+	            <br>
+
+	            <br>
+	            <label style='position:relative;left:33px;color:rgb(80,80,80);'>密码</label>
+	            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:44px;" name='mima'>
+	            <label id='one' style="color:red;left:62px;"></label>
+	            <br>
+
+	            <br>
+	            <label style='position:relative;left:20px;color:rgb(80,80,80);'>新密码</label>
+	            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:30px;" name='mima'>
+	            <label id='one' style="color:red;left:62px;color:rgb(80,80,80);"></label>
+	            <br>
+
+	            <br>
+	            <label style='position:relative;left:5px;color:rgb(80,80,80);'>确认密码</label>
+	            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:15px;" name='mima'>
+	            <label id='one' style="color:red;left:62px;"></label>
+	            <br>
+
+	            <br>
+	            <label style='position:relative;left:20px;color:rgb(80,80,80);'>验证码</label>
+	            <input type='password' class='mytxt' onFocus="onFocusFun(this,'one')" onblur='onblurFun(this)' style="left:30px;width:100px;" name='mima'>
+	            <img src="/static/images/verify/1.png" style="position:relative;left:30px;top:10px;width:60px;height:30px;">
+	            <label id='one' style="color:red;left:62px;"></label>
+	            <br>
+
+	            <br><br>
+	            <div style='position:relative;left:120px;'><input style='position:relative;left:-20px;' type='submit' id='submit_button' value='登录' onmouseover='down_changeColor1(this)' onmouseout='down_changeColor2(this)'><a href="http://www.baidu.com">忘记密码?</a></div>
+	            <br><br><br>
+
+	        <form/>
+	        </div>
+		</div>
+		
+	</div>
+
+
+</div>
+</body>
+>>>>>>> G
 </html>

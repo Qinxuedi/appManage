@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #comment{float: left;width: 730px;}
 #head_comment{width: 730px;height: 70px;font-size:20px;border-bottom:1px solid rgb(213,232,247); }
 #head_label{float: left;margin-left: 10px;margin-top: 20px;}
@@ -10,3 +11,17 @@
 #date_box{width:90px;height:25px;float: left;margin-left: 560px;margin-top: 7px;color:rgb(119,119,119);}
 #blank_box{width: 630px;height: 30px;float: left;}
 #bottom_blank{width: 730px;height: 60px;float: left;}
+=======
+#comment{float: left;width: 730px;}
+#head_comment{width: 730px;height: 70px;font-size:20px;border-bottom:1px solid rgb(213,232,247); }
+#head_label{float: left;margin-left: 10px;margin-top: 20px;}
+#body_comment{width: 730px;}
+#real_comment{width: 730px;float: left;border-bottom: 1px solid rgb(209,223,232);}
+#user_image{width: 50px;height: 50px;}
+#image_box img{border-radius: 50%}
+#image_box{float: left;margin-left: 10px;margin-top: 20px;}
+#comment_box{width: 630px;float: left;margin-left: 30px;margin-top: -20px;}
+#date_box{width:90px;height:25px;float: left;margin-left: 560px;margin-top: 7px;color:rgb(119,119,119);}
+#blank_box{width: 630px;height: 30px;float: left;}
+#bottom_blank{width: 730px;height: 60px;float: left;}
+>>>>>>> G

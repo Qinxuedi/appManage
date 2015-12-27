@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
 <head>
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
@@ -183,4 +184,191 @@
 
 </div>
 </body>
+=======
+<html>
+<head>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/onedate_css.css" />
+    <script type="text/javascript" src="/static/js/today_js.js"></script>
+</head>
+<body>
+<div id='container'>
+
+	<div id='menu'>
+	<ul>
+		<li><img src="/static/images/first/icon.png" width="170" height="51"/></li>
+		<li><a class='first' href="/">首页</a></li>
+		<li><a class='first' href="">软件</a></li>
+		<li><a class='first' href="/classify/1453/1/">分类</a></li>
+		<li><a class='first' href="/rank/1/">排行</a></li>
+		<li><a class='first' href="/my/">我的</a></li>
+		<li><a class='first' href="/today/" style='background:rgb(66,139,202)'>每日专题</a></li>
+		<li>
+			<div>
+				<form action='/search_result/' onsubmit="return validate_form(this)" method='post'>
+					{% csrf_token %}
+					<input type='text' name='input' id='input_search'/>
+					<input type='submit' value='搜索' id='input_submit'/>
+				</form>
+			</div>
+		</li>
+		<li>
+			{% if log %}
+			<a href="my/" id='my_button'>{{name}}</a>
+			<a href="/logout/" id='logout_button'>退出</a>
+			{% else %}
+				<a href="/login/" id='login_button'>登录</a>
+				<a href="/register/" id='register_button'>注册</a>
+			{% endif %} 
+		</li>
+	</ul>
+	</div>
+
+
+    <div id='left_div'>
+        <div id='head_div'>
+            <p style='font-size:28px;position:relative;top:8px;'>午餐吃什么 最全美食宝典，吃什么不用愁！</p>
+            <div class='inf_div'>
+                <p class='top_inf'>编辑:浅岸&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp时间:2015-11-6&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+                <img src="/static/images/today/love.png" class='top_inf'>
+                <p class='top_inf'>270</p>
+                <img src="/static/images/today/bag.png" class='top_inf'>
+                <p class='top_inf'>163</p>
+            </div>
+        </div>
+
+        <div id='inner_div'>
+            <p class='suo'>午餐要吃什么，对于很多上班族来说，这可是千古难题;其实又何止是午餐，他们早餐、晚餐也不知道要吃什么?为什么别人家的饭桌可以那么丰盛，而你……</p>
+            <p>别着急，今天小编就帮你解决吃的问题，多种选择，由你来做主!</p>
+            <p>上班族们还在愁中午吃什么吗?多个外卖平台，多种选择，总有一款适合你~</p>
+
+
+            <br><p>1、美团外卖</p>
+            <p>美团外卖，最好的手机订餐平台</p>
+            <p>特价套餐，下单立减，6元管饱还送饮料!优惠根本停不下来。</p>
+            <p>已覆盖50000+家餐厅,5000+ 品牌连锁餐厅,全国已开通100+城市.</p>
+            <p>高温、雨天、宵夜不想出门?动动手指，即可下单，45分钟即可送达。</p>
+            <p>中餐、西餐、小吃、快餐、饮料甜点...，想订神马就定神马。</p>
+            <p>还在等什么，马上下载美团外卖，享受最好的外卖服务.</p>
+            <img src="/static/images/today/oneday/2015-11-6/1_1.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/1_2.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/1_3.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/1_4.jpg" class='my'>
+            <br><br><a href="" class='download'>立即下载</a><br>
+
+            <p>2、饿了么</p>
+            <p>天气好热下雨空气差不想出去，怎么办?</p>
+            <p>想叫附近外卖时发现没有外卖单，怎么办?</p>
+            <p>看到一堆外卖单时不知吃哪个好，怎么办?</p>
+            <p>用【饿了么】吧，我们可以提供给您：</p>
+            <p>1. 快速搜罗附近外卖，不用打电话直接预订</p>
+            <p>2. 我们会在第一时间利用通知您外卖状态</p>
+            <p>3. 看到大家对喜欢的外卖美食的点评 照片</p>
+            <p>4. 收藏您喜欢的餐厅和美食，方便点餐</p>
+            <p>5. 各种赠饮打折活动，优惠不断</p>
+            <p>还在等什么?扔掉手里的外卖单，删掉手机里的外卖电话，马上体验最好的外卖订餐服务。
+            生活可以更简单，【叫外卖上饿了么】!</p>
+            <img src="/static/images/today/oneday/2015-11-6/2_1.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/2_2.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/2_3.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/2_4.jpg" class='my'>
+            <br><br><a href="" class='download'>立即下载</a><br>
+
+            <p>3、百度外卖</p>
+            <p>百度外卖是由百度打造的一个专业品质外卖服务平台，用户通过客户端可享受方便、快捷、贴心的网络订餐服务。目前百度外卖已向全国征招代理商，吸引了上万家商户。高品质的外卖商户，更贴心的送餐服务，尽在百度外卖!更有特惠活动正在进行中，快来百度外卖订餐吧!</p>
+            <p>功能介绍</p>
+            <p>附近美食，足不出户一览无余</p>
+            <p>快速订餐，轻松下单极速送达</p>
+            <p>一键催单，催单退单由你决定</p>
+            <p>订单追踪，百度配送实时定位</p>
+            <p>品质外卖，品牌餐厅吃的放心</p>
+            <p>在线支付，便捷付款无需找零</p>
+            <p>订单追踪，送餐员位置随时掌握</p>
+            <img src="/static/images/today/oneday/2015-11-6/3_1.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/3_2.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/3_3.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/3_4.jpg" class='my'>
+            <br><br><a href="" class='download'>立即下载</a><br>
+
+
+            <p>4、好豆菜谱</p>
+            <p>好豆菜谱是中国美食大全,提供家常菜、川菜、湘菜、粤菜、特色菜、私房菜、创意菜的菜谱做法,以及孕妇、糖尿病、高血压、儿童、婴幼儿、产妇、学生等美食食谱,是下厨房烹饪必备的美食菜谱软件。</p>
+            <p>好豆菜谱拥有中国最全的优质菜谱数据60多万道，包含人群分类和疾病调理的药膳食疗菜谱，提供各种健康饮食指导建议，立志让中国人吃出来的问题通过菜谱饮食调理再吃回去。</p>
+            <p>好豆菜谱首创菜谱的标准化、正版化、社交化和实用化，每道菜谱都为用户提供详细的步骤图、做法、用料及细节说明。好豆菜谱还是中国第一美食社区，用户可以分享菜谱、成果照，结交美食好友，参加线下聚会等，30多个城市的豆友会等你参加。</p>
+            <p>好豆菜谱新推出美食到家板块，我们只推荐真正好吃的美食，所有的美食均由美食达人亲手制作，绝对让你吃得放心!爱生活，爱美食，爱做菜，爱下厨，使用好豆菜谱，开启幸福生活!</p>
+            <img src="/static/images/today/oneday/2015-11-6/4_1.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/4_2.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/4_3.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/4_4.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/4_5.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/4_6.jpg" class='my'>
+            <br><br><a href="" class='download'>立即下载</a><br>
+
+            <p>5、豆果美食</p>
+            <p>深受华人追捧爱戴的美食互动平台。</p>
+            <p>更多美味新颖菜谱来自用户原创，亲民且更高人气的分享社区。</p>
+            <p>屈指可数的达到高品质食材供应商标准的电商App。</p>
+            <p>深受美食达人喜爱，在手机App美食类排行榜上傲视群雄，目前各大应用市场用户好评如潮，是市场占有率超高，深受用户欢迎的美食类移动应用。</p>
+            <p>主要功能</p>
+            <p>食谱：上百万份中文精选菜谱任你参阅，满足你对美食的一切幻想。</p>
+            <p>优食汇：新鲜食材，良心价格。让身兼白领与主妇的你，多快好省地淘到安心食材。</p>
+            <p>圈圈：加入酷炫活力美食社群，晒菜谱，炫厨艺，交到更多志趣相投的好朋友。</p>
+            <img src="/static/images/today/oneday/2015-11-6/5_1.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/5_2.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/5_3.jpg" class='my'>
+            <img src="/static/images/today/oneday/2015-11-6/5_4.jpg" class='my'>
+            <br><br><a href="" class='download'>立即下载</a><br><br><br>
+        </div>
+        
+    </div>
+
+    <div id='right_div' >
+        <div id='shang_panel'><p style='position:relative;left:10px;top:5px;'>热门主题</p></div>
+        <div class='xia_panel' id='xia_panel1' onmouseover='mover(this)' onmouseout='mout(this)'>
+            <img class='topic1' src="/static/images/today/6.jpg">
+            <div class='right_c'>
+                <a href="" class='right_href'>开学啦，你准备好了吗?</a><p>2015-9-1</p>
+            </div>
+        </div>
+        <div class='xia_panel' id='xia_panel2' onmouseover='mover(this)' onmouseout='mout(this)'>
+            <img class='topic1' src="/static/images/today/7.jpg">
+            <div class='right_c'>
+                <a href="" class='right_href'>如何过好七夕?把妹必备软件助你成功约炮</a><p>2015-8-20</p>
+            </div>
+        </div>
+        <div class='xia_panel' id='xia_panel3' onmouseover='mover(this)' onmouseout='mout(this)'>
+            <img class='topic1' src="/static/images/today/8.jpg">
+            <div class='right_c'>
+                <a href="" class='right_href'>灾难面前8款应急类APP帮你开启自救模式</a><p>2015-8-14</p>
+            </div>
+        </div>
+        <div class='xia_panel' id='xia_panel3' onmouseover='mover(this)' onmouseout='mout(this)'>
+            <img class='topic1' src="/static/images/today/9.jpg">
+            <div class='right_c'>
+                <a href="" class='right_href'>高考之后 放松身心必备治愈系软件合集</a><p>2015-6-10</p>
+            </div>
+        </div>
+    </div>
+
+    <div id='recent' >
+        <div id='recent_shang'><p style='position:relative;left:10px;top:5px;'>近期主题</p></div>
+        <div id='recent_xia'>
+            <br>
+            <a href='' class='date_topic'>2015-11-1</a>
+            <a href='' class='date_topic'>2015-10-31</a>
+            <a href='' class='date_topic'>2015-10-30</a><br><br>
+            <a href='' class='date_topic'>2015-10-29</a>
+            <a href='' class='date_topic'>2015-10-28</a>
+            <a href='' class='date_topic'>2015-10-27</a><br><br>
+            <a href='' class='date_topic'>2015-10-26</a>
+            <a href='' class='date_topic'>2015-10-25</a>
+            <a href='' class='date_topic'>更多</a>
+        </div>
+    </div>
+
+</div>
+</body>
+>>>>>>> G
 </html>

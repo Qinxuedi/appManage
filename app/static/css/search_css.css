@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 img.my{width: 100px;height: 100px;}
 body{color: rgb(137,137,137);}
 .down_panel
@@ -44,3 +45,51 @@ a.download:link,a.download:visited
 }
 a.download:hover,a.download:active{background-color: green;}
 strong{color: rgb(80,80,80);}
+=======
+img.my{width: 100px;height: 100px;}
+body{color: rgb(137,137,137);}
+.down_panel
+{
+	position: relative;
+	width: 840px;
+	height: 130px;
+	background-color: rgb(255,255,255);
+	border-top: 1px solid rgb(230,230,230);
+	border-left: none;
+}
+#down_panel5
+{
+	border-bottom: 1px solid rgb(230,230,230);
+}
+#up_panel
+{
+	width:825px;
+	height:50px;
+	background: rgb(247,247,247);
+	text-align:left;
+	font-size: 18px;
+	color: rgb(101,101,101);
+	padding-bottom: 3px;
+	padding-top: 1px;
+	padding-left: 15px;
+	margin-top: 15px;
+}
+body
+{
+	background: rgb(238,238,238);
+}
+#left_div
+{
+	float: left;
+	width: 840px;
+}
+.my_img,.my_inf{float: left;}
+.my_img{margin-top: 15px;margin-left: 20px;}
+.my_inf{margin-left: 20px;margin-top: 0px;width: 560px;}
+a.download:link,a.download:visited
+{display: block;float: left;background-color: rgb(122,199,32);margin-top: 50px;margin-left:15px;
+	color: white;width: 100px;text-decoration: none;padding-bottom: 5px;padding-top: 5px;text-align: center;
+}
+a.download:hover,a.download:active{background-color: green;}
+strong{color: rgb(80,80,80);}
+>>>>>>> G

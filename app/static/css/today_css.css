@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .down_panel
 {
 	position: relative;
@@ -141,4 +142,149 @@ img.topic1
 {
 	text-decoration: none;
 	color: rgb(66,139,202);
+=======
+.down_panel
+{
+	position: relative;
+	width: 840px;
+	height: 170px;
+	background-color: rgb(255,255,255);
+	border-top: 1px solid rgb(230,230,230);
+	border-left: none;
+}
+#down_panel5
+{
+	border-bottom: 1px solid rgb(230,230,230);
+}
+#up_panel
+{
+	width:825px;
+	height:50px;
+	background: rgb(247,247,247);
+	text-align:left;
+	font-size: 18px;
+	color: rgb(101,101,101);
+	padding-bottom: 3px;
+	padding-top: 1px;
+	padding-left: 15px;
+	margin-top: 15px;
+}
+
+#shang_panel,#recent_shang
+{
+	width:342px;
+	height: 30px;
+	background: rgb(247,247,247);
+	text-align:left;
+	font-size: 15px;
+	color: rgb(101,101,101);
+}
+.xia_panel
+{
+	position: relative;
+	background-color: rgb(255,255,255);
+	border-top: 1px solid rgb(230,230,230);
+	border-left: none;
+	width: 342px;
+	height: 70px;
+}
+#recent_xia
+{
+	background-color: rgb(255,255,255);
+	border-top: 1px solid rgb(210,210,210);
+	border-left: none;
+	width: 342px;
+	height: 160px;
+}
+body
+{
+	background: rgb(238,238,238);
+}
+img.topic
+{
+	width: 250px;
+	height: 150px;
+	position: relative;
+	left: 30px;
+	top: 10px;
+}
+
+img.topic1
+{
+	width: 60px;
+	height: 40px;
+	position: relative;
+	left: 5px;
+	top: 15px;
+}
+#left_div
+{
+	float: left;
+	width: 840px;
+}
+#right_div,#recent
+{
+	float:left;
+	margin-left: 15px;
+	width: 342px;
+}
+.date_topic
+{
+	display: inline-block;
+	width: 80px;
+	text-decoration: none;
+	text-align: center;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background-color: rgb(63,138,201);
+	color: white;
+	font-size: 12px;
+	position: relative;
+	left: 20px;
+}
+.guide
+{
+	position: relative;
+	left: 300px;
+	top: -160px;
+	color: rgb(66,139,202);
+	width: 530px;
+	height: 130px;
+	font-size: 14px;
+	color: rgb(155,155,155);
+	/*background-color: yellow;*/
+}
+.guide_href
+{
+	text-decoration: none;
+	color: rgb(66,139,202);
+	font-size: 18px;
+}
+.inf_div
+{
+	position: relative;
+	left: 725px;
+	top: -155px;
+	width: 150px;
+	height: 30px;
+	color: rgb(155,155,155);
+}
+.top_inf
+{
+	display: inline-block;
+}
+.right_c
+{
+	font-size: 13px;
+	position: relative;
+	left: 75px;
+	top: -30px;
+	text-decoration: none;
+	color: rgb(155,155,155);
+}
+.right_href
+{
+	text-decoration: none;
+	color: rgb(66,139,202);
+>>>>>>> G
 }
