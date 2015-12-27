@@ -10,6 +10,11 @@ import requests
 import urllib2,os
 # Create your views here.
 catch=False
+all_comments=[]
+all_comments_android=[]
+all_comments_iphone=[]
+all_comments_ipad=[]
+now_platform=3
 
 def first(request):
     headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
@@ -302,9 +307,9 @@ def rank(request,arg):
     up_href='/rank/'+str(id-1)+'/'
     down_href='/rank/'+str(id+1)+'/'
 
-    if True:
+    if catch==True:
         rank_app.objects.all().delete()
-        for page in range(3,4):
+        for page in range(1,8):
             url='http://as.baidu.com/a/rank?cid=100&s=1&f=web_alad%40next&pn='+str(page)
             html=urllib2.urlopen(url).read().decode('utf-8')
             v=re.findall('<div class="normal-wrap">(.*?)<img src="(.*?)" alt="(.*?)">(.*?)<div class="s-index-star s-index-star-(.*?)">(.*?)<span class="s-index-icon down-icon">&nbsp;</span>(.*?)</div>',html,re.S)
@@ -335,6 +340,7 @@ def rank(request,arg):
         for j in range(star+1,6):
             tmp.append("/static/images/app_images/greystar.png")
         lst.append((v[i].pic_url,v[i].name,tmp,v[i].download,v[i].rank,v[i].url))
+    print lst
     return render_to_response('rank.html',locals(),context_instance=RequestContext(request))
 
 
@@ -383,6 +389,11 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 def introduction_app(request):
+    global all_comments_android,all_comments_iphone,all_comments_ipad,all_comments
+    all_comments=[]
+    all_comments_android=[]
+    all_comments_iphone=[]
+    all_comments_ipad=[]
     headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
     app_name = request.GET['app_name'].encode('utf8')
 
@@ -683,6 +694,7 @@ def introduction_app(request):
                 comment_page=i
                 break
     down=True
+    search_comment_url='/search_comment/'
     if comment_page<=1:
         down=False
     show=[]
@@ -696,6 +708,19 @@ def introduction_app(request):
         tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
     for item in tmp:
         comments.append((item[0],item[2]))
+
+    for i in range(1,comment_page+1):
+        comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+str(i)
+        comment_value=requests.get(comment_url,headers=headers).text
+        tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
+        for item in tmp:
+            all_comments.append((item[0],item[2]))
+            if len(item[0])%3==2:
+                all_comments_android.append((item[0],item[2]))
+            elif len(item[0])%3==1:
+                all_comments_iphone.append((item[0],item[2]))
+            else:
+                all_comments_ipad.append((item[0],item[2]))
 
     app_name = request.GET['app_name'].encode('utf8')
     recommend=True
@@ -734,18 +759,35 @@ def t(x,y):
     return -cmp(lst1,lst2)
 
 def get_page(request):
-    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
+    global all_comments_android,all_comments_iphone,all_comments_ipad,all_comments
     result={}
-    comment_id=request.GET['comment_id']
     page_id=request.GET['page_id']
-    #print 'page_id',page_id
-    comment_url="http://shouji.baidu.com/comment?action_type=getCommentList&groupid="+comment_id+"&pn="+page_id
-    comment_value=requests.get(comment_url,headers=headers).text
-    tmp=re.findall('<p>(.*?)</p>(.*?)<div class="comment-time">(.*?) (.*?)</div>',comment_value,re.S)
+    now_platform=int(request.GET['now_platform'])
     comments=[]
-    for item in tmp:
-        comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[2]+"</label></div><br></div>")
-    #print 'comments',comments
+
+    print now_platform
+
+    if now_platform==3:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments)-1)
+        for item in all_comments[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif now_platform==2:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments_android)-1)
+        for item in all_comments_android[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif now_platform==1:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments_iphone)-1)
+        for item in all_comments_iphone[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    else:
+        beginIndex=(int(page_id)-1)*10
+        endIndex=min(int(page_id)*10,len(all_comments_ipad)-1)
+        for item in all_comments_ipad[beginIndex:endIndex]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+
     length=len(comments)
     for i in range(1,length):
         comments[i]=comments[i-1]+comments[i]
@@ -755,130 +797,75 @@ def get_page(request):
     #print 'result',result
     return HttpResponse(result,content_type='application/json')
 
-def get_app(request):
-    headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.154 Safari/537.36 LBBROWSER'}
-    v1=[]#for iphone
-    app_name='唯品会'
-    #http://app.91.com 91游戏中心
-    try:
-        star=[]
-        html_1_1_search = 'http://app.91.com/soft/iphone/search/1_5_0_0_'+'唯品会'
-        html_1_1_search =requests.get(html_1_1_search).text
-        url_1_1_real = 'http://app.91.com'+re.search('<div class="zoom">(.*?)<a href="(.*?)"',html_1_1_search,re.S).group(2)
-        html_1_1_real = requests.get(url_1_1_real).text
-        html_1_1_version = re.search('<ul class="s_info">(.*?)<li>(.*?)<a',html_1_1_real,re.S).group(2)
-        bool = 0
-        for char in html_1_1_version:
-            if char=='a':
-                bool=1
-                break
-        if bool:
-            html_1_1_version = re.search('(.*?)<a',html_1_1_version,re.S).group(1)
-        html_1_1_version =  html_1_1_version.strip()[3:]
-        html_1_1_big = re.search('<ul class="s_info">(.*?)<li>(.*?)<li>(.*?)<li>(.*?)</li>',html_1_1_real,re.S).group(4)
-        html_1_1_big = html_1_1_big.strip()[5:]
-        html_1_1_star = re.search('<span class="spr star">(.*?)</a></span>',html_1_1_real,re.S).group(1)
-        html_1_1_star = int(re.findall('(\d+)',html_1_1_star,re.S)[0][0])
-        for i in range(1,html_1_1_star+1):
-            star.append("/static/images/app_images/yellowstar.png")
-        for i in range(html_1_1_star+1,6):
-            star.append("/static/images/app_images/greystar.png")
-        v1.append((html_1_1_version,html_1_1_big,star,url_1_1_real,'91应用中心'))
-    except Exception,ex:
-            pass
-    #http://www.xyzs.com XY手机助手
-    try:
-        star=[]
-        url_1_2_search='http://www.xyzs.com/search/?keyword='+app_name
-        html_1_2_search=requests.get(url_1_2_search,headers=headers).text
-        url_1_2_real='http://www.xyzs.com'+re.search('<h4 class="talkbox">(.*?)<a href="(.*?)"',html_1_2_search,re.S).group(2)
-        html_1_2_real=requests.get(url_1_2_real,headers=headers).text
-        html_1_2_star=re.search('<strong class="pngimg" style="width:(.*?)%;"></strong>',html_1_2_real,re.S).group(1)
-        html_1_2_star=int(html_1_2_star)/20
-        html_1_2_real=re.search('<h1 id="title">(.*?)</h1>(.*?)</p>(.*?)<p>(.*?)</p>(.*?)<p>(.*?)</p>(.*?)<p>(.*?)</p>',html_1_2_real,re.S)
-        html_1_2_version=html_1_2_real.group(6).strip()[3:]
-        html_1_2_big=html_1_2_real.group(8).strip()[3:]
-        for i in range(1,html_1_2_star+1):
-            star.append("/static/images/app_images/yellowstar.png")
-        for i in range(html_1_2_star+1,6):
-            star.append("/static/images/app_images/greystar.png")
-        v1.append((html_1_2_version,html_1_2_big,star,url_1_2_real,'XY苹果助手'))
-    except Exception,ex:
-        pass
-    #http://www.app111.com 苹果园
-    try:
-        star=[]
-        url_1_3_search='http://www.app111.com/search?k='+app_name
-        html_1_3_search=requests.get(url_1_3_search,headers=headers).text
-        url_1_3_real='http://www.app111.com'+re.search('<div class="APPer_contain3_1">(.*?)<a title=(.*?)href="(.*?)"',html_1_3_search,re.S).group(3)
-        html_1_3_real=requests.get(url_1_3_real,headers=headers).text
-        html_1_3_star = re.search('<div class="num">(.*?)<span>(.*?)</span>',html_1_3_real,re.S).group(2)
-        html_1_3_star = int(re.findall('(\d+)',html_1_3_star,re.S)[0][0])/2
-        html_1_3_big=re.search('<div class="app_summary"(.*?)<p>(.*?)</p>',html_1_3_real,re.S)
-        html_1_3_big=html_1_3_big.group(2).strip()[5:]
-        html_1_3_version=re.search('<div id="divdetails"(.*?)</div>',html_1_3_real,re.S)
-        html_1_3_version=re.findall('(\d+)',html_1_3_version.group(1),re.S)
-        html_1_3_version=html_1_3_version[4][0]+'.'+html_1_3_version[5][0]+'.'+html_1_3_version[6][0]
-        for i in range(1,html_1_3_star+1):
-            star.append("/static/images/app_images/yellowstar.png")
-        for i in range(html_1_3_star+1,6):
-            star.append("/static/images/app_images/greystar.png")
-        v1.append((html_1_3_version,html_1_3_big,star,url_1_3_real,'苹果园'))
-    except Exception,ex:
-        pass
-    #http://ios.25pp.com pp助手
-    try:
-        star=[]
-        url_1_4_search='http://ios.25pp.com/search/2_0_0_0_1/'+app_name
-        html_1_4_search=requests.get(url_1_4_search,headers=headers).text
-        url_1_4_real=re.search('<a class="h4_a" href="(.*?)"',html_1_4_search,re.S).group(1)
-        html_1_4_real=requests.get(url_1_4_real,headers=headers).text
-        html_1_4_big=re.search('<div class="txt">(.*?)<li>(.*?)</li>(.*?)<li>(.*?)</li>(.*?)<li>(.*?)</li>',html_1_4_real,re.S).group(6)
-        html_1_4_big=html_1_4_big.strip()[9:]
-        html_1_4_version=re.search('<div class="txt">(.*?)<li>(.*?)</li>(.*?)<li>(.*?)</li>(.*?)<li>(.*?)</li>',html_1_4_real,re.S).group(2)
-        html_1_4_version=html_1_4_version.strip()[9:]
-        html_1_4_star=re.search('<li class="borderR">(.*?)<li>(.*?)<span>(.*?)</span>',html_1_4_real,re.S).group(3)
-        html_1_4_star = int(re.findall('(\d+)',html_1_4_star,re.S)[0][0])
-        for i in range(1,html_1_4_star+1):
-            star.append("/static/images/app_images/yellowstar.png")
-        for i in range(html_1_4_star+1,6):
-            star.append("/static/images/app_images/greystar.png")
-        v1.append((html_1_4_version,html_1_4_big,star,url_1_4_real,'pp助手'))
-    except Exception,ex:
-        pass
+def get_platform_init(request):
+    global now_platform
+    print 'I am in get_platform'
+    result={}
+    platform_id=request.GET['platform_id']
+    now_platform=int(platform_id)
+    comments=[]
+    comments.append("<div id='real_comment'>")
+    pages=0
+    if platform_id=='3':
+        pages=len(all_comments)
+        print 'pages=len(all_comments)',pages
+        for item in all_comments[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif platform_id=='2':
+        pages=len(all_comments_android)
+        for item in all_comments_android[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    elif platform_id=='1':
+        pages=len(all_comments_iphone)
+        for item in all_comments_iphone[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    else:
+        pages=len(all_comments_ipad)
+        for item in all_comments_ipad[0:10]:
+            comments.append("<div class='one_comment'><div class='comment_inf'><p class='main_comment'>"+item[0]+"</p></div><div class='c_date'><label>"+u'\u53d1\u5e03\u65e5\u671f'+":</label><label>"+item[1]+"</label></div><br></div>")
+    if pages%10==0:
+        pages=pages/10
+    else:
+        pages=pages/10+1
+    comments.append("</div><div class='blank' id='blank1'></div><div id='page'><div id='real_page'>")
 
-    html=[]
-    print 'v1',v1
-    print '-------------------------------------------'
-
-    for item in v1:
-        html.append('<div class="item"><div class="version"><label>version:</label><label>'+item[0])
-    length=len(html)
-    print 'html',html
+    if pages>0:
+        comments.append("<a href='#up_up' class='one_page' onclick='return click_page(this)' style='background: rgb(122,199,32);'>1</a>")
+    
+    for i in range(2,pages+1):
+        comments.append("<a href='#up_up' class='one_page' onclick='return click_page(this)'>"+str(i)+"</a>")
+    length=len(comments)
     for i in range(1,length):
-        html[i]=html[i-1]+html[i]
+        comments[i]=comments[i-1]+comments[i]
 
-    result=html[length-1]
+    result=comments[length-1]
     result=json.dumps(result)
     #print 'result',result
     return HttpResponse(result,content_type='application/json')
 
+def search_comment(request):
+    global now_platform
+    keyword=request.POST['keyword']
 
-def download_app(request,app_name):
-    filename='app/static/softwares/'+app_name+'.apk'
-    soft=Software.objects.filter(softname=app_name)[0]
-    soft.download_times=soft.download_times+1
-    soft.save()
-    if 'nowuser' in request.session.keys():
-        nowuser=request.session['nowuser']
-        user=User.objects.get(username=nowuser)
-        user.softwares.add(soft)
-    f = open(filename)
-    response = HttpResponse(FileWrapper(f), content_type = "application/vnd.android.package-archive")
-    response['Content-Encoding']='unicode'
-    response['Content-Length'] = os.path.getsize(filename)
-    response['Content-Disposition'] = 'attachment; filename = %s' % f.name
-    return response
+    comments=[]
+    if now_platform==3:
+        for item in all_comments:
+            if keyword in item[0]:
+                comments.append((item[0],item[1]))
+    elif now_platform==2:
+        for item in all_comments_android:
+            if keyword in item[0]:
+                comments.append((item[0],item[1]))
+    elif now_platform==1:
+        for item in all_comments_iphone:
+            if keyword in item[0]:
+                comments.append((item[0],item[1]))
+    else:
+        for item in all_comments_ipad:
+            if keyword in item[0]:
+                comments.append((item[0],item[1]))
+    return render_to_response('search_comment.html',locals(),context_instance=RequestContext(request))
+
 
 def change_password(request):
     if 'nowmima' in request.POST and request.POST['nowmima']:

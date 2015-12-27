@@ -18,13 +18,12 @@ urlpatterns = patterns('',
     (r'^logout/$',logout),
     (r'^change_password/$',change_password),
     (r'^search_result/$',search_result),
-    #(r'^can_not_be_null/$',temp),
+    (r'^search_comment/$',search_comment),
     (r'^introduction/',introduction_app),
-    (r'^download/(.+)/$',download_app),
     (r'^get_page/',get_page),
+    (r'^get_platform_init/',get_platform_init),
     #(r'^get_app/',get_app),
     url(r'^admin/', include(admin.site.urls)),
     (r'^s/(?P<path>.*)$', 'django.views.static.serve',{ 'document_root':'app/templates' }),
 )
 urlpatterns += staticfiles_urlpatterns()
-#waqxp

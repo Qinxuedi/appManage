@@ -3,6 +3,7 @@
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/first_css.css" />
+    <script type="text/javascript" src="/static/js/first_js.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/introduce_css.css" />
     <script type="text/javascript" src="/static/js/introduce_js.js"></script>
     <script type="text/javascript">
@@ -124,41 +125,43 @@
                 </div>
                 <div id='up_comment'>
                     <div id='inner_comment'>
-                        <form>
-                            <input name='radiobutton' type='radio' value='android' checked='checked'/>安卓平台
-                            <input name='radiobutton' type='radio' value='iphone'/>iphone平台
-                            <input name='radiobutton' type='radio' value='ipad'/>ipad平台
+                        <form action='/search_comment/' method='post'>
                             {% csrf_token %}
-                            <input type='text' id='comment_text'>
+                            <input name='radiobutton' type='radio' value='3' checked='checked' onclick="click_platform(this)" id='all'/>所有
+                            <input name='radiobutton' type='radio' value='2' onclick="click_platform(this)" id='android'/>安卓平台
+                            <input name='radiobutton' type='radio' value='1' onclick="click_platform(this)" id='iphone'/>iphone平台
+                            <input name='radiobutton' type='radio' value='0' onclick="click_platform(this)" id='ipad'/>ipad平台
+                        </form>
+                        <form action={{search_comment_url}} onsubmit="return validate_form2(this)" method='post' id='comment_form'>
+                            {% csrf_token %}
+                            <input type='text' name='keyword' id='comment_text'>
                             <input type='submit' value='搜索评论' id='comment_search'/>
                         </form>
                     </div>
                 </div>
-                <div id='real_comment'>
-                    {% for comment in comments %}
-                    <div class='one_comment'>
-                        <div class='comment_inf'>
-                            <p class='main_comment'>{{comment.0}}</p>
+
+                <div id='forjson'>
+                    <div id='real_comment'>
+                        {% for comment in comments %}
+                        <div class='one_comment'>
+                            <div class='comment_inf'>
+                                <p class='main_comment'>{{comment.0}}</p>
+                            </div>
+                            <div class="c_date"><label>发布日期:</label><label>{{comment.1}}</label></div><br>
                         </div>
-                        <div class="c_date"><label>发布日期:</label><label>{{comment.1}}</label></div><br>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                <div class='blank' id='blank1'></div>
-
-                <div id='page'>
-                    <a href="#up_up" id='up_page' style="display: none;width: 55px;height: 20px;text-decoration: none;text-align: center;color: rgb(80,80,80);border: 1px solid rgb(210,210,210);" onclick="return up_page()">上一页</a>
-
-                    <div id='real_page'>
-                        {% for item in show %}
-                        <a href="#up_up" class='one_page' onclick="return click_page(this)">{{item}}</a>
                         {% endfor %}
                     </div>
 
-                    {% if down %}
-                    <a href="#up_up" id='down_page' style="display: inline-block;width: 55px;height: 20px;text-decoration: none;text-align: center;color: rgb(80,80,80);border: 1px solid rgb(210,210,210);" onclick="return down_page()">下一页</a>
-                    {% endif %}
+                    <div class='blank' id='blank1'></div>
+
+                    <div id='page'>
+                        <div id='real_page'>
+                            {% for item in show %}
+                            <a href="#up_up" class='one_page' onclick="return click_page(this)">{{item}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <div class='blank'></div>
